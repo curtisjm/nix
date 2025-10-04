@@ -44,6 +44,17 @@
                         pkgs.stow
                         pkgs.skimpdf
                         pkgs.tree
+                        pkgs.uv
+                        pkgs.vscode
+                        pkgs.bat
+                        pkgs.zoxide
+                        pkgs.zsh-autocomplete
+                        pkgs.zsh-autosuggestions
+                        pkgs.eza
+                        pkgs.atuin
+                        pkgs.tldr
+                        pkgs.neofetch
+                        pkgs.btop
                     ];
 
                     system.primaryUser = "curtis";
@@ -57,6 +68,7 @@
                         enable = true;
                         brews = [ 
                             "node" 
+                            "sketchybar"
                         ];
                         casks = [
                             "arc"
@@ -67,13 +79,17 @@
                             "raycast"
                             "proton-pass"
                             "protonvpn"
-                            # "parallels"
-                            # "mactex-no-gui"
+                            "parallels"
                             "mactex"
-                            # "cleanshot"
-                            # "clion"
+                            "pycharm"
+                            "notion"
+                            "protonvpn"
+                            "zen"
+                            # "mactex-no-gui"
                         ];
-                        taps = [ ];
+                        taps = [
+                            "FelixKratz/formulae" 
+                        ];
                         masApps = { };
                         onActivation.cleanup = "zap";
                         onActivation.autoUpdate = true;
@@ -85,6 +101,7 @@
                             autohide = true;
                             persistent-apps = [ ];
                             tilesize = 50;
+                            expose-group-apps = false;
                         };
                         loginwindow.GuestEnabled = false;
                         NSGlobalDomain = {
