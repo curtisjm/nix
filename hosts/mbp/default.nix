@@ -1,10 +1,10 @@
 { self, inputs, ...}:
 {
     imports = [
-        ../modules/darwin/system.nix
-        ../modules/darwin/packages.nix
-        ../modules/darwin/homebrew.nix
-        ../modules/darwin/fonts.nix
+        ../../modules/darwin/system.nix
+        ../../modules/darwin/packages.nix
+        ../../modules/darwin/homebrew.nix
+        ../../modules/darwin/fonts.nix
         inputs.home-manager.darwinModules.home-manager
         inputs.nix-homebrew.darwinModules.nix-homebrew
     ];
