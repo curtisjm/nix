@@ -2,8 +2,8 @@
 {
     homebrew = {
         enable = true;
-        brews = [ 
-            "node" 
+        brews = [
+            "node"
             "sketchybar"
         ];
         casks = [
