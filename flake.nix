@@ -10,165 +10,33 @@
     };
 
     outputs =
-        inputs@{
-        self,
-        nix-darwin,
-        nixpkgs,
-        nix-homebrew,
-        }:
-        let
-            configuration =
-                { pkgs, ... }:
-                {
-                    # List packages installed in system profile. To search by name, run:
-                    # $ nix-env -qaP | grep wget
-                    environment.systemPackages = [
-                        pkgs.neovim
-                        pkgs.ffmpeg
-                        pkgs.git
-                        pkgs.gh
-                        pkgs.tmux
-                        pkgs.ripgrep
-                        pkgs.aerospace
-                        pkgs.fd
-                        pkgs.fzf
-                        pkgs.go
-                        pkgs.python3
-                        pkgs.ruff
-                        pkgs.nil
-                        pkgs.cargo
-                        pkgs.rustc
-                        pkgs.docker
-                        pkgs.docker-compose
-                        pkgs.colima
-                        pkgs.stow
-                        pkgs.skimpdf
-                        pkgs.tree
-                        pkgs.uv
-                        pkgs.vscode
-                        pkgs.bat
-                        pkgs.zoxide
-                        pkgs.zsh-autocomplete
-                        pkgs.zsh-autosuggestions
-                        pkgs.eza
-                        pkgs.atuin
-                        pkgs.tldr
-                        pkgs.neofetch
-                        pkgs.btop
-                    ];
-
-                    system.primaryUser = "curtis";
-                    security.pam.services.sudo_local.touchIdAuth = true;
-                    system.keyboard = {
-                        enableKeyMapping = true;
-                        remapCapsLockToEscape = true;
-                    };
-
-                    homebrew = {
-                        enable = true;
-                        brews = [ 
-                            "node" 
-                            "sketchybar"
-                        ];
-                        casks = [
-                            "arc"
-                            "discord"
-                            "obsidian"
-                            "karabiner-elements"
-                            "ghostty"
-                            "raycast"
-                            "proton-pass"
-                            "protonvpn"
-                            "parallels"
-                            "mactex"
-                            "pycharm"
-                            "notion"
-                            "protonvpn"
-                            "zen"
-                            # "mactex-no-gui"
-                        ];
-                        taps = [
-                            "FelixKratz/formulae" 
-                        ];
-                        masApps = { };
-                        onActivation.cleanup = "zap";
-                        onActivation.autoUpdate = true;
-                        onActivation.upgrade = true;
-                    };
-
-                    system.defaults = {
-                        dock = { 
-                            autohide = true;
-                            persistent-apps = [ ];
-                            tilesize = 50;
-                            expose-group-apps = false;
-                        };
-                        loginwindow.GuestEnabled = false;
-                        NSGlobalDomain = {
-                            AppleShowAllFiles = true;
-                            AppleICUForce24HourTime = true;
-                            AppleInterfaceStyle = "Dark";
-                            KeyRepeat = 2;
-                            InitialKeyRepeat = 12;
-                            ApplePressAndHoldEnabled = false;
-                        };
-                        finder.AppleShowAllExtensions = true;
-                        CustomUserPreferences = {
-                            "com.apple.symbolichotkeys" = {
-                                AppleSymbolicHotKeys = {
-                                    # Disable 'Cmd + Space' for Spotlight Search
-                                    "64" = {
-                                        enabled = false;
-                                    };
-                                };
-                            };
-                        };
-                    };
-
-                    
-                    nixpkgs.config.allowUnfree = true;
-
-                    fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
-
-                    # Necessary for using flakes on this system.
-                    nix.settings.experimental-features = "nix-command flakes";
-
-                    # Enable alternative shell support in nix-darwin.
-                    # programs.fish.enable = true;
-
-                    # Set Git commit hash for darwin-version.
-                    system.configurationRevision = self.rev or self.dirtyRev or null;
-
-                    # Used for backwards compatibility, please read the changelog before changing.
-                    # $ darwin-rebuild changelog
-                    system.stateVersion = 6;
-
-                    # The platform the configuration will be used on.
-                    nixpkgs.hostPlatform = "aarch64-darwin";
-                };
-        in
-            {
-            # Build darwin flake using:
-            # $ darwin-rebuild build --flake .#mbp
+        inputs@{ self, nix-darwin, nixpkgs, nix-homebrew }:
+        {
             darwinConfigurations."mbp" = nix-darwin.lib.darwinSystem {
                 modules = [
-                    configuration
+                    ./darwin/system.nix
+                    ./darwin/packages.nix
+                    ./darwin/homebrew.nix
+                    ./darwin/fonts.nix
+
+                    {
+                        system.primaryUser = "curtis";
+                        nixpkgs.config.allowUnfree = true;
+                        nix.settings.experimental-features = "nix-command flakes";
+                        system.configurationRevision = self.rev or self.dirtyRev or null;
+                        system.stateVersion = 6;
+                        nixpkgs.hostPlatform = "aarch64-darwin";
+                    }
 
                     nix-homebrew.darwinModules.nix-homebrew
                     {
                         nix-homebrew = {
-                            # Install Homebrew under the default prefix
                             enable = true;
-
-                            # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
                             enableRosetta = true;
+                            user = "curtis";
 
                             # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
                             # mutableTaps = false;
-
-                            # User owning the Homebrew prefix
-                            user = "curtis";
-
                         };
                     }
 
