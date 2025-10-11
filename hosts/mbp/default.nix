@@ -9,11 +9,17 @@
         inputs.nix-homebrew.darwinModules.nix-homebrew
     ];
 
+    users.users.curtis = {
+        name = "curtis";
+        home = "/Users/curtis";
+    };
+
    home-manager = {
         extraSpecialArgs = { inherit inputs; };
         users = {
             curtis = import ../../home/darwin;
         };
+        useGlobalPkgs = true;
     };
 
     system = {
