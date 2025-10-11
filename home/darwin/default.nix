@@ -8,6 +8,9 @@
         ../shared/bat.nix
         ../shared/eza.nix
         ../shared/fzf.nix
+        ../shared/git.nix
+        ../shared/ghostty.nix
+        ../shared/tmux.nix
     ];
 
     home.username = "curtis";
@@ -23,10 +26,11 @@
     };
 
     home.file = {
+        ".config/yabai/yabairc".source = ../../config/yabairc;
+        ".config/skhd/skhdrc".source = ../../config/skhdrc;
     };
 
     programs.yazi.enable = true;
 
     programs.home-manager.enable = true;
-
 }

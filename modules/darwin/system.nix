@@ -25,7 +25,6 @@
             _HIHideMenuBar = true;
         };
 
-
         CustomUserPreferences = {
             "com.apple.symbolichotkeys" = {
                 AppleSymbolicHotKeys = {

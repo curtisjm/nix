@@ -3,13 +3,13 @@
     environment.systemPackages = with pkgs; [
         neovim
         ffmpeg
-        git
+        # git
         gh
-        tmux
+        # tmux
         ripgrep
         # aerospace
         fd
-        fzf
+        # fzf
         go
         python3
         ruff
@@ -25,11 +25,11 @@
         uv
         vscode
         bat
-        zoxide
-        zsh-autocomplete
-        zsh-autosuggestions
-        eza
-        atuin
+        # zoxide
+        # zsh-autocomplete
+        # zsh-autosuggestions
+        # eza
+        # atuin
         tldr
         neofetch
         btop

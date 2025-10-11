@@ -5,6 +5,7 @@
         ../../modules/darwin/packages.nix
         ../../modules/darwin/homebrew.nix
         ../../modules/darwin/fonts.nix
+        ../../modules/darwin/services.nix
         inputs.home-manager.darwinModules.home-manager
         inputs.nix-homebrew.darwinModules.nix-homebrew
     ];
@@ -40,17 +41,6 @@
 
         # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
         # mutableTaps = false;
-    };
-
-    services.yabai = {
-        enable = true;
-        package = pkgs.yabai;
-        enableScriptingAddition = true;
-    };
-
-    services.skhd = {
-        enable = true;
-        package = pkgs.skhd;
     };
 
     nix.settings.experimental-features = "nix-command flakes";
