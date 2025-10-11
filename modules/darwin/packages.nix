@@ -7,7 +7,7 @@
         gh
         tmux
         ripgrep
-        aerospace
+        # aerospace
         fd
         fzf
         go
@@ -33,5 +33,8 @@
         tldr
         neofetch
         btop
+        jq
+        jankyborders
+        shortcat
     ];
 }

@@ -16,6 +16,10 @@
                     system = "aarch64-linux";
                     modules = [ ./hosts/vm ];
                 };
+                desktop = nixpkgs.lib.nixosSystem {
+                    system = "x86_64-linux";
+                    modules = [ ./hosts/desktop ];
+                };
             };
 
             darwinConfigurations = {

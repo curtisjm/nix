@@ -1,4 +1,4 @@
-{ self, inputs, ...}:
+{ self, inputs, pkgs, ...}:
 {
     imports = [
         ../../modules/darwin/system.nix
@@ -8,6 +8,13 @@
         inputs.home-manager.darwinModules.home-manager
         inputs.nix-homebrew.darwinModules.nix-homebrew
     ];
+
+   home-manager = {
+        extraSpecialArgs = { inherit inputs; };
+        users = {
+            curtis = import ../../home/darwin;
+        };
+    };
 
     system = {
         primaryUser = "curtis";
@@ -27,6 +34,17 @@
 
         # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
         # mutableTaps = false;
+    };
+
+    services.yabai = {
+        enable = true;
+        package = pkgs.yabai;
+        enableScriptingAddition = true;
+    };
+
+    services.skhd = {
+        enable = true;
+        package = pkgs.skhd;
     };
 
     nix.settings.experimental-features = "nix-command flakes";
