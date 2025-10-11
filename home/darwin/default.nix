@@ -28,6 +28,10 @@
     home.file = {
         ".config/yabai/yabairc".source = ../../config/yabairc;
         ".config/skhd/skhdrc".source = ../../config/skhdrc;
+        ".config/nvim" = {
+            source = ./nvim;
+            recursive = true;
+        };
     };
 
     programs.yazi.enable = true;
