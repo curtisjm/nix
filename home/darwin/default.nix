@@ -29,7 +29,7 @@
         ".config/yabai/yabairc".source = ../../config/yabairc;
         ".config/skhd/skhdrc".source = ../../config/skhdrc;
         ".config/nvim" = {
-            source = ./nvim;
+            source = ../../config/nvim;
             recursive = true;
         };
     };
