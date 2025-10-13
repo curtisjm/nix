@@ -21,6 +21,7 @@
             "notion"
             "protonvpn"
             "zen"
+            "spotify"
             # "mactex-no-gui"
         ];
         taps = [
