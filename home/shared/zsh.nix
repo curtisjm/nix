@@ -15,6 +15,11 @@
 
         initContent = ''
             bindkey -v
+            export PATH="/Library/TeX/texbin:$PATH"
+            cd() {
+              z "$@"
+              eza -l
+            }
         '';
     };
 }

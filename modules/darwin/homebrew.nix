@@ -22,6 +22,7 @@
             "protonvpn"
             "zen"
             "spotify"
+            "forklift"
             # "mactex-no-gui"
         ];
         taps = [
