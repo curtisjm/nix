@@ -263,3 +263,5 @@ alt - p : yabai -m query --spaces --space 16 | jq -r '.windows[0]' | xargs yabai
 # ctrl + alt - s : yabai --start-service
 shift + alt - y : launchctl kickstart -k "gui/${UID}/org.nixos.yabai"
 shift + alt - s : launchctl kickstart -k "gui/${UID}/org.nixos.skhd"
+
+alt - 0 : open -na "Claude"

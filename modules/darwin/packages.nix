@@ -36,5 +36,9 @@
         jq
         jankyborders
         shortcat
+        rust-analyzer
+        yt-dlp
+        cmake
+        google-chrome
     ];
 }

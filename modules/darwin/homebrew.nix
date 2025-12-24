@@ -23,12 +23,18 @@
             "zen"
             "spotify"
             "forklift"
+            "claude"
+            "claude-code"
             # "mactex-no-gui"
         ];
         taps = [
             "FelixKratz/formulae" 
         ];
-        masApps = { };
+        masApps = {
+            "Perplexity" = 6714467650;
+            "Microsoft Word" = 462054704;
+            "Microsoft Excel" = 462058435;
+        };
         onActivation = {
             cleanup = "zap";
             autoUpdate = true;
