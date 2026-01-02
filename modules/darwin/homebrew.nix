@@ -25,7 +25,6 @@
             "forklift"
             "claude"
             "claude-code"
-            # "mactex-no-gui"
         ];
         taps = [
             "FelixKratz/formulae" 
