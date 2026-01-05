@@ -1,0 +1,66 @@
+{ inputs, pkgs, ... }:
+
+{
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+    # nvidiaPatches = true;
+
+    # withUWSM = true;
+
+    # set the flake package
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    # make sure to also set the portal package, so that they are in sync
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
+
+    environment.sessionVariables = {
+        # Hint electron apps to use wayland
+        NIXOS_OZONE_WL = "1";
+        # If your cursor becomes invisible
+        WLR_NO_HARDWARE_CURSORS = "1";
+    };
+
+    # hardware = {
+    #     opengl.enable = true;
+    #     # Most wayland compositors need this
+    #     nvidia.modesetting.enable = true;
+    # };
+
+  # programs.hyprlock.enable = true;
+  # services.hypridle.enable = true;
+
+    environment.systemPackages = with pkgs; [
+        waybar
+        dunst
+        libnotify
+        rofi
+        swww
+        # pkgs.eww
+  
+    # pyprland
+    # hyprpicker
+    # hyprcursor
+    # hyprlock
+    # hypridle
+    # hyprpaper
+    # hyprsunset
+    # hyprpolkitagent
+    ];
+
+    # xdg.portal = {
+    #         enable = true;
+    #         extraProtals = [ pkgs.xdg-desktop-portal-gtk ];
+    # };
+
+    # Enable sound with pipewire
+    # sound.enable = true;
+    # security.rtkit.enable = true;
+    # services.pipewire = {
+    #     enable = true;
+    #     alsa.enable = true;
+    #     alsa.support32Bit = true;
+    #     pulse.enable = true;
+    #     jack.enable = true;
+    # };
+}

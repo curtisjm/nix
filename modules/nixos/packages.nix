@@ -1,0 +1,30 @@
+{ pkgs, ... }:
+{
+    environment.systemPackages = with pkgs; [
+        neovim
+        gh
+        ripgrep
+        fd
+        go
+        python3
+        ruff
+        nil
+        cargo
+        rustc
+        docker
+        docker-compose
+        colima
+        stow
+        uv
+        vscode
+        bat
+        tldr
+        btop
+        rust-analyzer
+        yt-dlp
+        cmake
+        google-chrome
+        gcc
+        kitty
+    ];
+}
