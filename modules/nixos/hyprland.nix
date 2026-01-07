@@ -36,6 +36,11 @@
         libnotify
         rofi
         swww
+        hyprpolkitagent #should be in HM?
+        wl-clipboard
+        xdg-desktop-portal-hyprland
+        kdePackages.dolphin
+
         # pkgs.eww
   
     # pyprland
@@ -48,10 +53,17 @@
     # hyprpolkitagent
     ];
 
-    # xdg.portal = {
-    #         enable = true;
-    #         extraProtals = [ pkgs.xdg-desktop-portal-gtk ];
-    # };
+    security.polkit.enable = true;
+
+    xdg.portal = {
+            enable = true;
+            # extraProtals = [ pkgs.xdg-desktop-portal-hyprland ];
+    };
+
+    services.displayManager.sddm = {
+        enable = true;
+        wayland.enable = true;
+    };
 
     # Enable sound with pipewire
     # sound.enable = true;
@@ -63,4 +75,9 @@
     #     pulse.enable = true;
     #     jack.enable = true;
     # };
+    #
+
+    services.pipewire = {
+        enable = true;
+    };
 }

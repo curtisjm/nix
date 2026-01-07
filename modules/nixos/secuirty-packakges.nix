@@ -4,5 +4,6 @@
         nmap
         netcat
         tcpdump
+        inetutils
     ];
 }

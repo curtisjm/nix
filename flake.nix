@@ -4,13 +4,19 @@
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
         home-manager.url = "github:nix-community/home-manager";
-        nix-darwin.url = "github:nix-darwin/nix-darwin/master";
-        nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
         nix-homebrew.url = "github:zhaofengli/nix-homebrew";
         hyprland.url = "github:hyprwm/Hyprland";
+        nix-darwin = {
+            url = "github:nix-darwin/nix-darwin/master";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+        hyprland-plugins = {
+            url = "github:hyprwm/hyprland-plugins";
+            inputs.hyprland.follows = "hyprland";
+        };
     };
 
-    outputs = inputs@{self, nixpkgs, nix-darwin, nix-homebrew, home-manager, hyprland}:
+    outputs = inputs@{self, nixpkgs, nix-darwin, nix-homebrew, home-manager, hyprland, hyprland-plugins}:
         {
             nixosConfigurations = {
                 vm = nixpkgs.lib.nixosSystem {

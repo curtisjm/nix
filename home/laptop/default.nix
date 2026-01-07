@@ -11,6 +11,7 @@
         ../shared/git.nix
         # ../shared/ghostty.nix
         ../shared/tmux.nix
+        ../nixos/hyprland/hyprland.nix
     ];
 
     home.username = "curtis";
