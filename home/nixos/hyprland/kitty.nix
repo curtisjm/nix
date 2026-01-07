@@ -2,7 +2,7 @@
 {
     programs.kitty = {
         enable = true;
-        themeFile = "Glacier";
+        # themeFile = "Glacier";
         # font = "JetBrains Mono";
     };
 }
