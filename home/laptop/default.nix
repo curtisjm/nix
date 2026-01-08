@@ -12,7 +12,7 @@
         # ../shared/ghostty.nix
         ../shared/tmux.nix
         ../shared/java.nix
-        # ../nixos/hyprland/hyprland.nix
+        # ../nixos/hyprland.nix
     ];
 
     home.username = "curtis";

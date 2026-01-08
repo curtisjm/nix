@@ -8,5 +8,6 @@
         inetutils
         samba
         burpsuite
+        redis
     ];
 }
