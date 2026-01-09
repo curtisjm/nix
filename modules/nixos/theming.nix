@@ -12,7 +12,7 @@
 
   config = {
     # Current active theme - CHANGE THIS LINE TO SWITCH THEMES
-    theme = import ./themes/gruvbox-dark.nix;
+    theme = import ./themes/catppuccin-mocha.nix;
 
     # System fonts
     fonts.packages = with pkgs; [

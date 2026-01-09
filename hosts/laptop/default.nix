@@ -23,6 +23,7 @@
         users.curtis = import ../../home/laptop;
         useGlobalPkgs = true;
         useUserPackages = true;
+        backupFileExtension = "backup";
     };
 
 
