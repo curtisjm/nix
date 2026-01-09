@@ -11,6 +11,10 @@ in
   wayland.windowManager.sway = {
     enable = true;
 
+    # Disable config check because wallpaper is in home directory
+    # The check fails in build sandbox but works fine at runtime
+    checkConfig = false;
+
     config = rec {
       # Use Alt as modifier (like your current config)
       modifier = "Mod1";

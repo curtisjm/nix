@@ -37,6 +37,6 @@
     };
   };
 
-  # Wallpaper
-  wallpaper = "~/nix/wallpapers/dark-nix.png";
+  # Wallpaper (use absolute path for Nix build sandbox)
+  wallpaper = "/home/curtis/nix/wallpapers/dark-nix.png";
 }

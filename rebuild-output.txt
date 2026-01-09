@@ -1,0 +1,68 @@
+building the system configuration...
+these 8 derivations will be built:
+  /nix/store/hc40k25nhprnx1zcrxcn2m5cffrdvi1h-sway.conf.drv
+  /nix/store/4anbni4xiw4casq3s26nhlmsryvz8cx9-activation-script.drv
+  /nix/store/jkg2qf19kxxml47lzr53vliwqyrrvy5k-home-manager-files.drv
+  /nix/store/jasyx4rk1qri3qf24xyx3ld3nbhy9lm0-home-manager-generation.drv
+  /nix/store/255xpzh7wv214ivahaplgmcddq5acj2p-unit-home-manager-curtis.service.drv
+  /nix/store/1jhg5raqapaydi1z3bhg1wkhv85ysdd2-system-units.drv
+  /nix/store/h1xqjvsgsf9pg219jlax2jpqvfcdcya9-etc.drv
+  /nix/store/cmwg9wlljvy707qnff7xqk1x9q9yigf3-nixos-system-nixos-25.11.20251007.c9b6fb7.drv
+building '/nix/store/hc40k25nhprnx1zcrxcn2m5cffrdvi1h-sway.conf.drv'...
+error: Cannot build '/nix/store/hc40k25nhprnx1zcrxcn2m5cffrdvi1h-sway.conf.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/3a6iba03dgyjjccs6wfgz42gppyg8wsb-sway.conf
+       Last 25 log lines:
+       > Fontconfig error: No writable cache directories
+       >      /homeless-shelter/.cache/fontconfig
+       >     /var/cache/fontconfig
+       >
+       > Fontconfig error: No writable cache directories
+       >   /homeless-shelter/.cache/fontconfig
+       >     /var/cache/fontconfig
+       >
+       > Fontconfig error: No writable cache directories
+       >   /homeless-shelter/.cache/fontconfig
+       >     /var/cache/fontconfig
+       >
+       > Fontconfig error: No writable cache directories
+       >   /homeless-shelter/.cache/fontconfig
+       >     /var/cache/fontconfig
+       >
+       > Fontconfig error: No writable cache directories
+       >   /homeless-shelter/.cache/fontconfig
+       >     /var/cache/fontconfig
+       > 00:00:00.087 [sway/commands/output/background.c:126] Unable to access background file '/homeless-shelter/nix/wallpapers/dark-nix.png' and no valid fallback provided
+       > 00:00:00.087 [sway/config.c:815] Error on line 88 'bg ~/nix/wallpapers/dark-nix.png fill': Unable to access background file '/homeless-shelter/nix/wallpapers/dark-nix.png' and no valid fallback provided (/nix/store/3a6iba03dgyjjccs6wfgz42gppyg8wsb-sway.conf)
+       > 00:00:00.087 [sway/config.c:441] Error(s) loading config!
+       > Checking the sway config file failed. Normally, this happens because there are errors in the config file.
+       > But the check can also fail if the sway config file has dependencies on configuration that is not available in the Nix build sandbox (e.g. custom keyboard layouts defined in the NixOS configuration; background images in the user's home directory).
+       > In that case, it may be necessary to set 'wayland.windowManager.sway.checkConfig = false;'.
+       For full logs, run:
+         nix log /nix/store/hc40k25nhprnx1zcrxcn2m5cffrdvi1h-sway.conf.drv
+error: Cannot build '/nix/store/4anbni4xiw4casq3s26nhlmsryvz8cx9-activation-script.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/3a0b1say7nxhg8arqlz3v0ddvsspl85i-activation-script
+error: Cannot build '/nix/store/jasyx4rk1qri3qf24xyx3ld3nbhy9lm0-home-manager-generation.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/g4izr922iz4drqx8bilsd4p9vajmj8hq-home-manager-generation
+error: Cannot build '/nix/store/255xpzh7wv214ivahaplgmcddq5acj2p-unit-home-manager-curtis.service.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/mljiwwvfli6dizn840xwcr2564ha5mj1-unit-home-manager-curtis.service
+error: Cannot build '/nix/store/1jhg5raqapaydi1z3bhg1wkhv85ysdd2-system-units.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/q92bbpl8ci11wc3rcvwcr8fp0ahv4sqy-system-units
+error: Cannot build '/nix/store/h1xqjvsgsf9pg219jlax2jpqvfcdcya9-etc.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/j729vciin8zi9grgag6f5jq7l6vicc88-etc
+error: Cannot build '/nix/store/cmwg9wlljvy707qnff7xqk1x9q9yigf3-nixos-system-nixos-25.11.20251007.c9b6fb7.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/748hi9r7h9s4bj47i8d6wj3hc16xc1ac-nixos-system-nixos-25.11.20251007.c9b6fb7
+Command 'nix --extra-experimental-features 'nix-command flakes' build --print-out-paths '/home/curtis/nix#nixosConfigurations."laptop".config.system.build.toplevel' --no-link' returned non-zero exit status 1.
