@@ -15,6 +15,7 @@
 	../../modules/nixos/sway.nix
 	../../modules/nixos/keyd.nix
 	../../modules/nixos/fonts.nix
+	../../modules/nixos/theming.nix
     ];
 
    home-manager = {

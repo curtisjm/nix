@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
     imports = [
         ../shared/zsh.nix
@@ -13,6 +13,12 @@
         ../shared/tmux.nix
         ../shared/java.nix
         # ../nixos/hyprland.nix
+        ../nixos/sway.nix
+        ../nixos/waybar.nix
+        ../nixos/rofi.nix
+        ../nixos/mako.nix
+        ../nixos/swaylock.nix
+        ../nixos/gtk.nix
     ];
 
     home.username = "curtis";
