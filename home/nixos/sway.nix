@@ -54,6 +54,9 @@ in
 
         # Clipboard
         "${mod}+v" = "exec cliphist list | rofi -dmenu | cliphist decode | wl-copy";
+
+        # Power menu
+        "${mod}+Shift+e" = "exec wlogout";
       };
 
       # Startup applications
@@ -143,6 +146,7 @@ in
       # Floating windows
       for_window [app_id="pavucontrol"] floating enable
       for_window [app_id="nm-connection-editor"] floating enable
+      for_window [app_id="wlogout"] floating enable
 
       # Disable focus wrapping
       focus_wrapping no
