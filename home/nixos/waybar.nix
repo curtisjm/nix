@@ -31,6 +31,8 @@ in
 
         # Right modules - system info (HyDE-inspired)
         modules-right = [
+          "idle_inhibitor"
+          "mpris"
           "pulseaudio"
           "network"
           "cpu"
@@ -136,6 +138,36 @@ in
           on-click = "pavucontrol";
           tooltip-format = "{desc}, {volume}%";
         };
+
+        "idle_inhibitor" = {
+          format = "{icon}";
+          format-icons = {
+            activated = "";
+            deactivated = "";
+          };
+          tooltip-format-activated = "Idle inhibitor active";
+          tooltip-format-deactivated = "Idle inhibitor inactive";
+        };
+
+        "mpris" = {
+          format = "{player_icon} {dynamic}";
+          format-paused = "{status_icon} <i>{dynamic}</i>";
+          player-icons = {
+            default = "▶";
+            mpv = "🎵";
+            spotify = "";
+          };
+          status-icons = {
+            paused = "⏸";
+          };
+          dynamic-order = ["title" "artist"];
+          dynamic-importance-order = ["title" "artist"];
+          dynamic-len = 40;
+          tooltip-format = "{player}: {title} - {artist}";
+          on-click = "playerctl play-pause";
+          on-scroll-up = "playerctl next";
+          on-scroll-down = "playerctl previous";
+        };
       };
     };
 
@@ -187,6 +219,8 @@ in
       #memory,
       #network,
       #pulseaudio,
+      #mpris,
+      #idle_inhibitor,
       #tray,
       #mode,
       #window {
@@ -245,6 +279,23 @@ in
         color: ${theme.fg-alt};
       }
 
+      #mpris {
+        color: ${theme.purple};
+      }
+
+      #mpris.paused {
+        color: ${theme.fg-alt};
+        font-style: italic;
+      }
+
+      #idle_inhibitor {
+        color: ${theme.orange};
+      }
+
+      #idle_inhibitor.activated {
+        color: ${theme.warning};
+      }
+
       #clock {
         color: ${theme.fg};
         font-weight: bold;
@@ -281,5 +332,6 @@ in
   home.packages = with pkgs; [
     pavucontrol  # Volume control GUI
     btop         # System monitor
+    playerctl    # Media player control
   ];
 }
