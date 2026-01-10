@@ -13,10 +13,8 @@
 	../../modules/nixos/secuirty-packakges.nix
 	# ../../modules/nixos/hyprland.nix
 	../../modules/nixos/sway.nix
-	../../modules/nixos/sddm.nix
 	../../modules/nixos/keyd.nix
 	../../modules/nixos/fonts.nix
-	../../modules/nixos/theming.nix
     ];
 
    home-manager = {
@@ -24,7 +22,6 @@
         users.curtis = import ../../home/laptop;
         useGlobalPkgs = true;
         useUserPackages = true;
-        backupFileExtension = "backup";
     };
 
 
