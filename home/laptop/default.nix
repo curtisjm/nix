@@ -1,8 +1,8 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
     imports = [
         ../shared/zsh.nix
-        ../shared/starship.nix
+        # ../shared/starship.nix
         ../shared/zoxide.nix
         ../shared/atuin.nix
         ../shared/bat.nix
@@ -13,15 +13,6 @@
         ../shared/tmux.nix
         ../shared/java.nix
         # ../nixos/hyprland.nix
-        ../nixos/sway.nix
-        ../nixos/waybar.nix
-        ../nixos/rofi.nix
-        ../nixos/mako.nix
-        ../nixos/kitty.nix
-        ../nixos/swaylock.nix
-        ../nixos/wlogout.nix
-        ../nixos/fastfetch.nix
-        ../nixos/gtk.nix
     ];
 
     home.username = "curtis";

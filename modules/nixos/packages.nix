@@ -26,5 +26,6 @@
         gcc
         kitty
         obsidian
+        claude-code
     ];
 }
