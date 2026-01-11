@@ -6,8 +6,10 @@
         ../../modules/darwin/homebrew.nix
         ../../modules/darwin/fonts.nix
         ../../modules/darwin/services.nix
+        ../../modules/darwin/stylix.nix
         inputs.home-manager.darwinModules.home-manager
         inputs.nix-homebrew.darwinModules.nix-homebrew
+        inputs.stylix.darwinModules.stylix
     ];
 
     users.users.curtis = {
@@ -43,5 +45,6 @@
         # mutableTaps = false;
     };
 
+	nix.enable = false;
     nix.settings.experimental-features = "nix-command flakes";
 }
