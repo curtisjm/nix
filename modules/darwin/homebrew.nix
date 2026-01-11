@@ -16,7 +16,7 @@
             "proton-pass"
             "protonvpn"
             "parallels"
-            "mactex"
+            # "mactex"
             "pycharm"
             "notion"
             "protonvpn"
@@ -30,7 +30,7 @@
             "FelixKratz/formulae" 
         ];
         masApps = {
-            "Perplexity" = 6714467650;
+            # "Perplexity" = 6714467650;
             "Microsoft Word" = 462054704;
             "Microsoft Excel" = 462058435;
         };

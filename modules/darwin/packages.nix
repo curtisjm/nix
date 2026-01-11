@@ -28,5 +28,7 @@
         yt-dlp
         cmake
         google-chrome
+	# yabai
+	# skhd
     ];
 }
