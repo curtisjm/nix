@@ -22,7 +22,7 @@
         rust-analyzer
         yt-dlp
         cmake
-        google-chrome
+        # google-chrome
         gcc
         kitty
         obsidian
