@@ -15,6 +15,8 @@
 	# ../../modules/nixos/hyprland.nix
 	../../modules/nixos/keyd.nix
 	../../modules/nixos/fonts.nix
+	../../modules/nixos/stylix.nix
+	inputs.stylix.nixosModules.stylix
     ];
 
    home-manager = {
@@ -76,7 +78,7 @@
   # };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  # services.printing.enable = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;

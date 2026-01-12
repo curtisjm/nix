@@ -10,6 +10,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
+	boot.kernelParams = [ "video=3456x2168@60" ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/fc029e24-471b-4ea5-919e-209b243b86ef";
