@@ -25,7 +25,7 @@
         # google-chrome
         gcc
         kitty
-        obsidian
         claude-code
+        ghostty
     ];
 }
