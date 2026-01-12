@@ -18,6 +18,11 @@
     enable = true;
     wrapperFeatures.gtk = true;
     xwayland.enable = true;
+	
+    extraPackages = with pkgs; [
+    	adwaita-icon-theme # mouse cursor and icons
+    	gnome-themes-extra # dark adwaita theme
+    ];
   };
 
   security.polkit.enable = true;

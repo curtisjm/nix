@@ -15,8 +15,9 @@
         # ../nixos/hyprland.nix
     ];
 
-    home.username = "curtis";
-    home.homeDirectory = "/home/curtis";
+    # TODO: change this to var
+    home.username = "citrus";
+    home.homeDirectory = "/home/citrus";
     home.stateVersion = "25.11";
 
     home.packages = [
