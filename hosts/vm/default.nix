@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
         inputs.home-manager.nixosModules.home-manager
+	inputs.stylix.nixosModules.stylix
 	../../modules/nixos/packages.nix
 	# ../../modules/nixos/secuirty-packakges.nix
 	../../modules/nixos/sway.nix
@@ -16,7 +17,6 @@
 	../../modules/nixos/keyd.nix
 	../../modules/nixos/fonts.nix
 	../../modules/nixos/stylix.nix
-	inputs.stylix.nixosModules.stylix
     ];
 
    home-manager = {
