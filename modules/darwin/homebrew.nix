@@ -19,12 +19,10 @@
             # "mactex"
             "pycharm"
             "notion"
-            "protonvpn"
             "zen"
             "spotify"
             "forklift"
             "claude"
-            "claude-code"
         ];
         taps = [
             "FelixKratz/formulae" 

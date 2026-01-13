@@ -25,22 +25,50 @@
     };
 
     outputs = inputs@{self, nixpkgs, nix-darwin, nix-homebrew, home-manager, hyprland, hyprland-plugins, stylix}:
+        let
+            # Common settings
+            commonConfig = {
+                timezone = "America/Los_Angeles";
+                locale = "en_US.UTF-8";
+            };
+
+            # Per-host settings
+            vmConfig = commonConfig // {
+                username = "citrus";
+                hostname = "nixos-vm";
+            };
+
+            laptopConfig = commonConfig // {
+                username = "curtis";
+                hostname = "nixos-laptop";
+            };
+
+            desktopConfig = commonConfig // {
+                username = "curtis";
+                hostname = "nixos-desktop";
+            };
+
+            mbpConfig = commonConfig // {
+                username = "curtis";
+                hostname = "mbp";
+            };
+        in
         {
             nixosConfigurations = {
                 vm = nixpkgs.lib.nixosSystem {
                     system = "aarch64-linux";
                     modules = [ ./hosts/vm ];
-                    specialArgs = { inherit self inputs; };
+                    specialArgs = { inherit self inputs; hostConfig = vmConfig; };
                 };
                 desktop = nixpkgs.lib.nixosSystem {
                     system = "x86_64-linux";
                     modules = [ ./hosts/desktop ];
-                    specialArgs = { inherit self inputs; };
+                    specialArgs = { inherit self inputs; hostConfig = desktopConfig; };
                 };
                 laptop = nixpkgs.lib.nixosSystem {
                     system = "x86_64-linux";
                     modules = [ ./hosts/laptop ];
-                    specialArgs = { inherit self inputs; };
+                    specialArgs = { inherit self inputs; hostConfig = laptopConfig; };
                 };
             };
 
@@ -48,7 +76,7 @@
                 mbp = nix-darwin.lib.darwinSystem {
                     system = "aarch64-darwin";
                     modules = [ ./hosts/mbp ];
-                    specialArgs = { inherit self inputs; };
+                    specialArgs = { inherit self inputs; hostConfig = mbpConfig; };
                 };
             };
         };
