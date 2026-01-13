@@ -23,6 +23,11 @@
     	adwaita-icon-theme # mouse cursor and icons
     	gnome-themes-extra # dark adwaita theme
     ];
+
+        # export WLR_RENDERER=pixman
+    extraSessionCommands = ''
+        export WLR_NO_HARDWARE_CURSORS=1
+    '';
   };
 
   security.polkit.enable = true;
