@@ -2,7 +2,9 @@
 {
     programs.kitty = {
         enable = true;
-        # themeFile = "Glacier";
-        # font = "JetBrains Mono";
+        settings = {
+            background_opacity = "1.0";
+            confirm_os_window_close = 0;
+        };
     };
 }
