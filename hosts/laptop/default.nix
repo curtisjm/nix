@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, hostConfig, ... }:
 
 {
   imports =
@@ -10,7 +10,7 @@
       ./hardware-configuration.nix
         inputs.home-manager.nixosModules.home-manager
 	../../modules/nixos/packages.nix
-	../../modules/nixos/secuirty-packakges.nix
+	../../modules/nixos/security-packages.nix
 	# ../../modules/nixos/hyprland.nix
 	../../modules/nixos/sway.nix
 	../../modules/nixos/keyd.nix
@@ -18,8 +18,8 @@
     ];
 
    home-manager = {
-        extraSpecialArgs = { inherit inputs; };
-        users.curtis = import ../../home/laptop;
+        extraSpecialArgs = { inherit inputs hostConfig; };
+        users.${hostConfig.username} = import ../../home/laptop;
         useGlobalPkgs = true;
         useUserPackages = true;
     };
@@ -41,7 +41,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = hostConfig.hostname;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -51,22 +51,19 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
+  time.timeZone = hostConfig.timezone;
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
+  i18n.defaultLocale = hostConfig.locale;
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
+    LC_ADDRESS = hostConfig.locale;
+    LC_IDENTIFICATION = hostConfig.locale;
+    LC_MEASUREMENT = hostConfig.locale;
+    LC_MONETARY = hostConfig.locale;
+    LC_NAME = hostConfig.locale;
+    LC_NUMERIC = hostConfig.locale;
+    LC_PAPER = hostConfig.locale;
+    LC_TELEPHONE = hostConfig.locale;
+    LC_TIME = hostConfig.locale;
   };
 
   # Enable the X11 windowing system.
@@ -104,14 +101,11 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.curtis = {
+  users.users.${hostConfig.username} = {
     isNormalUser = true;
-    description = "Curtis Mitchell";
+    description = hostConfig.username;
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
+    packages = with pkgs; [];
   };
 
   # Install firefox.

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, hostConfig, ... }:
 {
     imports = [
         ../shared/zsh.nix
@@ -19,9 +19,8 @@
         ../nixos/rofi.nix
     ];
 
-    # TODO: change this to var
-    home.username = "citrus";
-    home.homeDirectory = "/home/citrus";
+    home.username = hostConfig.username;
+    home.homeDirectory = "/home/${hostConfig.username}";
     home.stateVersion = "25.11";
 
     home.packages = [
