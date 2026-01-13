@@ -99,7 +99,7 @@
   users.users.${hostConfig.username} = {
     isNormalUser = true;
     description = hostConfig.username;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "render" ];
     packages = with pkgs; [];
   };
 
