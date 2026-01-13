@@ -13,6 +13,10 @@
         ../shared/tmux.nix
         ../shared/java.nix
         # ../nixos/hyprland.nix
+        ../nixos/sway.nix
+        ../nixos/kitty.nix
+        ../nixos/waybar.nix
+        ../nixos/rofi.nix
     ];
 
     # TODO: change this to var

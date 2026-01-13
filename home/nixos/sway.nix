@@ -1,22 +1,14 @@
-{ config, pkgs, lib, osConfig, ... }:
+{ config, pkgs, lib, ... }:
 
-let
-  theme = osConfig.theme;
-in
 {
   # Sway configuration managed by home-manager
-  # Colors from custom theme module
-  # Custom keybindings and behavior defined here
+  # Colors handled by Stylix automatically
 
   wayland.windowManager.sway = {
     enable = true;
 
-    # Disable config check because wallpaper is in home directory
-    # The check fails in build sandbox but works fine at runtime
-    checkConfig = false;
-
     config = rec {
-      # Use Alt as modifier (like your current config)
+      # Use Alt as modifier
       modifier = "Mod1";
 
       # Terminal
@@ -40,7 +32,7 @@ in
         "${mod}+space" = "exec ${config.wayland.windowManager.sway.config.menu}";
         "${mod}+Shift+q" = "kill";
 
-        # Browser (extra workspace bindings from your config)
+        # Extra workspace bindings
         "${mod}+t" = "workspace number 11";
         "${mod}+b" = "workspace number 12";
         "${mod}+o" = "workspace number 13";
@@ -61,15 +53,12 @@ in
 
       # Startup applications
       startup = [
-        # Clipboard manager
         { command = "wl-paste --type text --watch cliphist store"; }
         { command = "wl-paste --type image --watch cliphist store"; }
-
-        # Network manager applet
         { command = "nm-applet --indicator"; }
       ];
 
-      # Input configuration (from your current config)
+      # Input configuration
       input = {
         "type:touchpad" = {
           dwt = "enabled";
@@ -79,44 +68,16 @@ in
         };
       };
 
-      # Output configuration
+      # Output configuration for VM
       output = {
-        "*" = {
-          bg = "${theme.wallpaper} fill";
+        "Virtual-1" = {
+          mode = "3456x2168@60Hz";
+          scale = "2";
         };
+        # Wallpaper handled by Stylix
       };
 
-      # Colors
-      colors = {
-        focused = {
-          background = theme.accent;
-          border = theme.accent;
-          childBorder = theme.accent;
-          indicator = theme.accent;
-          text = theme.bg;
-        };
-        focusedInactive = {
-          background = theme.bg-alt;
-          border = theme.border;
-          childBorder = theme.border;
-          indicator = theme.bg-alt;
-          text = theme.fg;
-        };
-        unfocused = {
-          background = theme.bg;
-          border = theme.border;
-          childBorder = theme.border;
-          indicator = theme.bg;
-          text = theme.fg-alt;
-        };
-        urgent = {
-          background = theme.urgent;
-          border = theme.urgent;
-          childBorder = theme.urgent;
-          indicator = theme.urgent;
-          text = theme.bg;
-        };
-      };
+      # Colors handled by Stylix automatically
 
       # Window appearance
       window = {
@@ -134,31 +95,26 @@ in
         outer = 4;
       };
 
-      # Focus follows mouse
       focus.followMouse = true;
 
-      # Bars - we disable the default since waybar is configured separately
+      # Use waybar
       bars = [ ];
     };
 
-    # Extra config that doesn't fit in the structured options
     extraConfig = ''
-      # Floating windows
       for_window [app_id="pavucontrol"] floating enable
       for_window [app_id="nm-connection-editor"] floating enable
       for_window [app_id="wlogout"] floating enable
-
-      # Disable focus wrapping
       focus_wrapping no
     '';
   };
 
-  # Install required packages for sway session
+  # Required packages for sway session
   home.packages = with pkgs; [
-    wl-clipboard     # Clipboard utilities
-    grim             # Screenshot tool
-    slurp            # Screen region selector
-    cliphist         # Clipboard manager
-    networkmanagerapplet  # Network manager tray
+    wl-clipboard
+    grim
+    slurp
+    cliphist
+    networkmanagerapplet
   ];
 }
