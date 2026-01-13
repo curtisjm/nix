@@ -28,10 +28,8 @@
         yt-dlp
         cmake
         google-chrome
-        utm
         opencode
         claude-code
-	# yabai
-	# skhd
+        utm
     ];
 }
