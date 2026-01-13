@@ -11,8 +11,9 @@
         inputs.home-manager.nixosModules.home-manager
 	inputs.stylix.nixosModules.stylix
 	../../modules/nixos/packages.nix
-	# ../../modules/nixos/secuirty-packakges.nix
-	../../modules/nixos/sway.nix
+	# ../../modules/nixos/security-packages.nix
+	../../modules/nixos/i3.nix  # Use i3 instead of sway (X11 works better in Parallels)
+	# ../../modules/nixos/sway.nix
 	# ../../modules/nixos/hyprland.nix
 	../../modules/nixos/keyd.nix
 	../../modules/nixos/fonts.nix
@@ -21,13 +22,11 @@
 
    home-manager = {
         extraSpecialArgs = { inherit inputs hostConfig; };
-        users.${hostConfig.username} = import ../../home/laptop;
+        users.${hostConfig.username} = import ../../home/vm;  # VM-specific home config
         useGlobalPkgs = true;
         useUserPackages = true;
         backupFileExtension = "backup";
     };
-
-    services.xserver.displayManager.gdm.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
