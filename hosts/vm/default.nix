@@ -112,17 +112,27 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-	git
-tmux
-neovim  
-];
+    git
+    tmux
+    neovim
+    mesa-utils  # for glxinfo debugging
+  ];
 
 nix.settings.experimental-features = "nix-command flakes";
 
 hardware.parallels.enable = true;
-hardware.opengl.enable = true;
+hardware.graphics = {
+  enable = true;
+  extraPackages = with pkgs; [
+    mesa
+  ];
+};
+
+# Force software rendering for VM compatibility
+environment.sessionVariables = {
+  LIBGL_ALWAYS_SOFTWARE = "1";
+  WLR_RENDERER_ALLOW_SOFTWARE = "1";
+};
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
