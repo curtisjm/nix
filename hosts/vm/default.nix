@@ -25,6 +25,7 @@
         users.citrus = import ../../home/laptop;
         useGlobalPkgs = true;
         useUserPackages = true;
+        backupFileExtension = "backup";
     };
 
     services.xserver.displayManager.gdm.enable = true;
