@@ -24,9 +24,9 @@
         cmake
         # google-chrome
         gcc
-        kitty
+        # kitty
         claude-code
-        ghostty
+        # ghostty
         alacritty
     ];
 }

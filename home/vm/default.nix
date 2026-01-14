@@ -14,9 +14,10 @@
         ../shared/java.nix
         # ../nixos/i3.nix
         ../nixos/sway.nix
-        ../nixos/kitty.nix
+        # ../nixos/kitty.nix
         ../nixos/alacritty.nix
         ../nixos/rofi.nix
+        ../nixos/waybar.nix
     ];
 
     home.username = hostConfig.username;
