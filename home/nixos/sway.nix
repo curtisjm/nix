@@ -106,6 +106,7 @@
       for_window [app_id="nm-connection-editor"] floating enable
       for_window [app_id="wlogout"] floating enable
       focus_wrapping no
+      seat * xcursor_theme Adwaita 24
     '';
   };
 
