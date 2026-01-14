@@ -23,6 +23,7 @@
             "spotify"
             "forklift"
             "claude"
+            "zoom"
         ];
         taps = [
             "FelixKratz/formulae" 
