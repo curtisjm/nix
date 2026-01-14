@@ -55,9 +55,14 @@
         in
         {
             nixosConfigurations = {
-                vm = nixpkgs.lib.nixosSystem {
+                parallels-vm = nixpkgs.lib.nixosSystem {
                     system = "aarch64-linux";
-                    modules = [ ./hosts/vm ];
+                    modules = [ ./hosts/parallels-vm ];
+                    specialArgs = { inherit self inputs; hostConfig = vmConfig; };
+                };
+                utm-vm = nixpkgs.lib.nixosSystem {
+                    system = "aarch64-linux";
+                    modules = [ ./hosts/utm-vm ];
                     specialArgs = { inherit self inputs; hostConfig = vmConfig; };
                 };
                 desktop = nixpkgs.lib.nixosSystem {
