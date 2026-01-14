@@ -9,7 +9,7 @@
     waybar
   ];
 
-  # Enable the gnome-keyring secrets vault. 
+  # Enable the gnome-keyring secrets vault.
   # Will be exposed through DBus to programs willing to store secrets.
   services.gnome.gnome-keyring.enable = true;
 
@@ -18,13 +18,12 @@
     enable = true;
     wrapperFeatures.gtk = true;
     xwayland.enable = true;
-	
+
     extraPackages = with pkgs; [
-    	adwaita-icon-theme # mouse cursor and icons
     	gnome-themes-extra # dark adwaita theme
     ];
 
-        # export WLR_RENDERER=pixman
+    # VM compatibility - use software cursor rendering
     extraSessionCommands = ''
         export WLR_NO_HARDWARE_CURSORS=1
     '';

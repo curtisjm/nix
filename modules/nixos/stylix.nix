@@ -30,10 +30,16 @@
         };
     };
 
-    # Cursor theme
+    # Cursor theme (consolidated here - Stylix sets home.pointerCursor automatically)
     stylix.cursor = {
         name = "Adwaita";
         package = pkgs.adwaita-icon-theme;
         size = 24;
+    };
+
+    # Cursor environment variables for Wayland compatibility
+    environment.sessionVariables = {
+        XCURSOR_THEME = "Adwaita";
+        XCURSOR_SIZE = "24";
     };
 }
