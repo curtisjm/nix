@@ -120,14 +120,14 @@
 nix.settings.experimental-features = "nix-command flakes";
 
 hardware.parallels.enable = true;
-hardware.graphics.enable = true;
+# hardware.graphics.enable = true;
 
-# hardware.graphics = {
-#   enable = true;
-  # extraPackages = with pkgs; [
-  #   mesa
-  # ];
-# };
+hardware.graphics = {
+  enable = true;
+  extraPackages = with pkgs; [
+    mesa
+  ];
+};
 
 # Force software rendering for VM compatibility
 # environment.sessionVariables = {

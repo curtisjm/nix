@@ -27,5 +27,6 @@
         kitty
         claude-code
         ghostty
+        alacritty
     ];
 }
