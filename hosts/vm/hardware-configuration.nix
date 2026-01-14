@@ -8,7 +8,7 @@
 
   boot.initrd.availableKernelModules = [ "ehci_pci" "xhci_pci" "usbhid" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ ];
+  boot.kernelModules = [ "virtio_gpu" ];
   boot.extraModulePackages = [ ];
 	boot.kernelParams = [ "video=3456x2168@60" ];
 

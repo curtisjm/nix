@@ -12,8 +12,8 @@
         # ../shared/ghostty.nix
         ../shared/tmux.nix
         ../shared/java.nix
-        # Use i3 instead of sway for VM (X11 works better in Parallels)
         ../nixos/i3.nix
+        ../nixos/sway.nix
         ../nixos/kitty.nix
         ../nixos/rofi.nix
     ];
