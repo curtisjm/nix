@@ -18,6 +18,7 @@
 	../../modules/nixos/keyd.nix
 	../../modules/nixos/fonts.nix
 	../../modules/nixos/stylix.nix
+	../../modules/nixos/thunar.nix
     ];
 
    home-manager = {

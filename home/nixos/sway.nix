@@ -53,6 +53,7 @@
 
       # Startup applications
       startup = [
+        { command = "waybar"; }
         { command = "wl-paste --type text --watch cliphist store"; }
         { command = "wl-paste --type image --watch cliphist store"; }
         { command = "nm-applet --indicator"; }
