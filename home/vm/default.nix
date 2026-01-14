@@ -24,6 +24,14 @@
     home.homeDirectory = "/home/${hostConfig.username}";
     home.stateVersion = "25.11";
 
+    # Cursor configuration for Wayland/Sway
+    home.pointerCursor = {
+        gtk.enable = true;
+        package = pkgs.adwaita-icon-theme;
+        name = "Adwaita";
+        size = 24;
+    };
+
     home.packages = [
         pkgs.tree
     ];
