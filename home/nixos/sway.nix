@@ -33,12 +33,12 @@
         "${mod}+Shift+q" = "kill";
 
         # Extra workspace bindings
-        "${mod}+t" = "workspace number 11";
-        "${mod}+b" = "workspace number 12";
-        "${mod}+o" = "workspace number 13";
-        "${mod}+Shift+t" = "move container to workspace number 11";
-        "${mod}+Shift+b" = "move container to workspace number 12";
-        "${mod}+Shift+o" = "move container to workspace number 13";
+        # "${mod}+t" = "workspace number 11";
+        # "${mod}+b" = "workspace number 12";
+        # "${mod}+o" = "workspace number 13";
+        # "${mod}+Shift+t" = "move container to workspace number 11";
+        # "${mod}+Shift+b" = "move container to workspace number 12";
+        # "${mod}+Shift+o" = "move container to workspace number 13";
 
         # Screenshots
         "Print" = "exec grim -g \"$(slurp)\" - | wl-copy";
