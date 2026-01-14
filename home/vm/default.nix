@@ -12,9 +12,10 @@
         # ../shared/ghostty.nix
         ../shared/tmux.nix
         ../shared/java.nix
-        ../nixos/i3.nix
+        # ../nixos/i3.nix
         ../nixos/sway.nix
         ../nixos/kitty.nix
+        ../nixos/alacritty.nix
         ../nixos/rofi.nix
     ];
 
