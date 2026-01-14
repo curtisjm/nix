@@ -12,7 +12,7 @@
       modifier = "Mod1";
 
       # Terminal
-      terminal = "kitty";
+      terminal = "alacritty";
 
       # Application launcher - rofi
       menu = "rofi -show drun";
