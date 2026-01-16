@@ -31,15 +31,16 @@
     };
 
     # Cursor theme (consolidated here - Stylix sets home.pointerCursor automatically)
+    # Size 48 for HiDPI (scale 2) - cursor is scaled down by output scale
     stylix.cursor = {
         name = "Adwaita";
         package = pkgs.adwaita-icon-theme;
-        size = 24;
+        size = 48;
     };
 
     # Cursor environment variables for Wayland compatibility
     environment.sessionVariables = {
         XCURSOR_THEME = "Adwaita";
-        XCURSOR_SIZE = "24";
+        XCURSOR_SIZE = "48";
     };
 }
