@@ -33,12 +33,12 @@
         "${mod}+Shift+q" = "kill";
 
         # Extra workspace bindings
-        "${mod}+t" = "workspace number 11";
-        "${mod}+b" = "workspace number 12";
-        "${mod}+o" = "workspace number 13";
-        "${mod}+Shift+t" = "move container to workspace number 11";
-        "${mod}+Shift+b" = "move container to workspace number 12";
-        "${mod}+Shift+o" = "move container to workspace number 13";
+        # "${mod}+t" = "workspace number 11";
+        # "${mod}+b" = "workspace number 12";
+        # "${mod}+o" = "workspace number 13";
+        # "${mod}+Shift+t" = "move container to workspace number 11";
+        # "${mod}+Shift+b" = "move container to workspace number 12";
+        # "${mod}+Shift+o" = "move container to workspace number 13";
 
         # Screenshots
         "Print" = "exec grim -g \"$(slurp)\" - | wl-copy";
@@ -53,6 +53,8 @@
 
       # Startup applications
       startup = [
+        { command = "waybar"; }
+        { command = "swaymsg workspace 1"; }
         { command = "wl-paste --type text --watch cliphist store"; }
         { command = "wl-paste --type image --watch cliphist store"; }
         { command = "nm-applet --indicator"; }
@@ -106,7 +108,7 @@
       for_window [app_id="nm-connection-editor"] floating enable
       for_window [app_id="wlogout"] floating enable
       focus_wrapping no
-      seat * xcursor_theme Adwaita 24
+      seat * xcursor_theme Adwaita 32
     '';
   };
 

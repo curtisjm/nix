@@ -9,5 +9,6 @@
         samba
         burpsuite
         redis
+        freerdp
     ];
 }
