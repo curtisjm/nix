@@ -54,6 +54,7 @@
       # Startup applications
       startup = [
         { command = "waybar"; }
+        { command = "swaymsg workspace 1"; }
         { command = "wl-paste --type text --watch cliphist store"; }
         { command = "wl-paste --type image --watch cliphist store"; }
         { command = "nm-applet --indicator"; }
@@ -107,7 +108,7 @@
       for_window [app_id="nm-connection-editor"] floating enable
       for_window [app_id="wlogout"] floating enable
       focus_wrapping no
-      seat * xcursor_theme Adwaita 24
+      seat * xcursor_theme Adwaita 32
     '';
   };
 

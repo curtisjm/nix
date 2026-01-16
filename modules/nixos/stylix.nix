@@ -34,12 +34,12 @@
     stylix.cursor = {
         name = "Adwaita";
         package = pkgs.adwaita-icon-theme;
-        size = 24;
+        size = 48;
     };
 
     # Cursor environment variables for Wayland compatibility
     environment.sessionVariables = {
         XCURSOR_THEME = "Adwaita";
-        XCURSOR_SIZE = "24";
+        XCURSOR_SIZE = "48";
     };
 }
