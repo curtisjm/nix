@@ -48,7 +48,7 @@
 
   # NVIDIA
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.open = true;
+  hardware.nvidia.open = false;
   hardware.graphics.enable = true;
 
   # Lid close behavior
