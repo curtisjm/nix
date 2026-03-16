@@ -15,7 +15,6 @@
     inputs.home-manager.nixosModules.home-manager
     inputs.stylix.nixosModules.stylix
     inputs.agenix.nixosModules.default
-    ../../modules/nixos/networking.nix
     ../../modules/nixos/theme.nix
     ../../modules/nixos/stylix.nix
     ../../modules/nixos/noctalia.nix
