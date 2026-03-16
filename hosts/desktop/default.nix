@@ -12,7 +12,6 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-13th-gen
     inputs.home-manager.nixosModules.home-manager
     inputs.stylix.nixosModules.stylix
     inputs.agenix.nixosModules.default
@@ -46,11 +45,11 @@
 
   # For noctalia shell
   hardware.bluetooth.enable = true;
-  services.tuned.enable = true;
-  services.upower.enable = true;
 
-  # Fingerprint reader
-  services.fprintd.enable = true;
+  # NVIDIA
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.open = true;
+  hardware.graphics.enable = true;
 
   # Lid close behavior
   # services.logind = {

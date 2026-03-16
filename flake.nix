@@ -74,6 +74,9 @@
       // {
         username = "curtis";
         hostname = "nixos";
+        monitors = [ "eDP-1, 2880x1800@120, auto, 2" ];
+        isLaptop = true;
+        hasNvidia = false;
       };
 
     desktopConfig =
@@ -81,6 +84,9 @@
       // {
         username = "curtis";
         hostname = "nixos-desktop";
+        monitors = [ ", preferred, auto, 1" ];
+        isLaptop = false;
+        hasNvidia = true;
       };
 
     mbpConfig =

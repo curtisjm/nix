@@ -2,6 +2,7 @@
   pkgs,
   lib,
   osConfig,
+  hostConfig,
   ...
 }: let
   transparency = osConfig.custom.theme.transparency or false;
@@ -41,22 +42,20 @@ in {
 
         repeat_rate = 50;
         repeat_delay = 300;
-
+      } // lib.optionalAttrs hostConfig.isLaptop {
         touchpad = {
           natural_scroll = true;
           clickfinger_behavior = true;
         };
       };
 
-      device = {
-        name = "tpps/2-elan-trackpoint";
-        accel_profile = "flat";
-        sensitivity = -0.2;
-      };
+      monitor = hostConfig.monitors;
 
-      monitor = [
-        # "eDP-1, 2880x1800@120, auto, 1.8"
-        "eDP-1, 2880x1800@120, auto, 2"
+      env = lib.optionals hostConfig.hasNvidia [
+        "LIBVA_DRIVER_NAME,nvidia"
+        "XDG_SESSION_TYPE,wayland"
+        "GBM_BACKEND,nvidia-drm"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
       ];
 
       general = {
@@ -215,6 +214,7 @@ in {
       # Allow on lock screen
       bindl = [
         ", XF86AudioMute, exec, noctalia-shell ipc call volume muteOutput"
+      ] ++ lib.optionals hostConfig.isLaptop [
         ", switch:Lid Switch, exec, systemctl suspend"
       ];
 
@@ -233,6 +233,12 @@ in {
         ", XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase"
         ", XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease"
       ];
+    } // lib.optionalAttrs hostConfig.isLaptop {
+      device = {
+        name = "tpps/2-elan-trackpoint";
+        accel_profile = "flat";
+        sensitivity = -0.2;
+      };
     };
 
     extraConfig = ''

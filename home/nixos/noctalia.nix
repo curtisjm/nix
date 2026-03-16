@@ -3,6 +3,7 @@
   inputs,
   lib,
   osConfig,
+  hostConfig,
   ...
 }:
 let
@@ -64,15 +65,19 @@ in
             {
               id = "Tray";
             }
+          ] ++ lib.optionals hostConfig.isLaptop [
             {
               id = "Battery";
             }
+          ] ++ [
             {
               id = "Volume";
             }
+          ] ++ lib.optionals hostConfig.isLaptop [
             {
               id = "Brightness";
             }
+          ] ++ [
             {
               id = "SystemMonitor";
             }
