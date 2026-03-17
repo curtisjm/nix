@@ -1,23 +1,46 @@
-{ config, pkgs, lib, ... }:
-
-let
-  mod = "Mod1";  # Alt key
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  # mod = "Mod1"; # Alt key
+  mod = "Mod4"; # Super key
+in {
+  # home.sessionVariables = {
+  #   GDK_SCALE = "2";
+  #   GDK_DPI_SCALE = "0.5";
+  #   QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+  # };
+
+  home.sessionVariables = {
+    GDK_SCALE = "2";
+    GDK_DPI_SCALE = "0.5";
+    QT_AUTO_SCREEN_SCALE_FACTOR = "0";
+    QT_SCALE_FACTOR = "2";
+    QT_FONT_DPI = "96";
+    ELECTRON_OZONE_PLATFORM_HINT = "x11";
+    _JAVA_OPTIONS = "-Dsun.java2d.uiScale=2";
+  };
+
+  xresources.properties = {
+    "Xft.dpi" = 192;
+  };
+
   xsession.windowManager.i3 = {
     enable = true;
 
     config = {
       modifier = mod;
       terminal = "kitty";
-      menu = "rofi -show drun";
+      menu = "rofi -dpi 192 -show drun";
 
       # Keybindings
       keybindings = lib.mkOptionDefault {
         # Applications
         "${mod}+Return" = "exec kitty";
-        "${mod}+space" = "exec rofi -show drun";
-        "${mod}+Shift+q" = "kill";
+        "${mod}+space" = "exec rofi -dpi 192 -show drun";
+        "${mod}+q" = "kill";
 
         # Focus (vim keys)
         "${mod}+h" = "focus left";
@@ -88,62 +111,88 @@ in
         border = 2;
         titlebar = false;
         criteria = [
-          { class = "Pavucontrol"; }
-          { class = "Nm-connection-editor"; }
-          { class = "feh"; }
+          {class = "Pavucontrol";}
+          {class = "Nm-connection-editor";}
+          {class = "feh";}
         ];
       };
 
       gaps = {
-        inner = 8;
-        outer = 4;
+        inner = 6;
+        outer = 3;
       };
 
       focus.followMouse = true;
 
+      bars = [];
       # Use i3bar with i3status (or configure polybar separately)
-      bars = [{
-        position = "bottom";
-        statusCommand = "${pkgs.i3status}/bin/i3status";
-      }];
-
+      # bars = [{
+      #   position = "bottom";
+      #   statusCommand = "${pkgs.i3status}/bin/i3status";
+      # }];
+      #
       # Startup applications
       startup = [
-        { command = "nm-applet"; notification = false; }
-        { command = "dunst"; notification = false; }
+        {
+          command = "xrandr --output Virtual-1 --mode 2880x1800 --dpi 192";
+          notification = false;
+        }
+        {
+          command = "GDK_SCALE=1 feh --bg-fill ../../wallpapers/gruvbox-1.jpg";
+          notification = false;
+        }
+        {
+          command = "xset r rate 300 50";
+          notification = false;
+        }
+        {
+          command = "spice-vdagent";
+          notification = false;
+        }
+        {
+          command = "nm-applet";
+          notification = false;
+        }
+        {
+          command = "dunst";
+          notification = false;
+        }
         # Compositor for smooth rendering
-        { command = "picom -b"; notification = false; }
+        {
+          command = "picom -b";
+          notification = false;
+        }
       ];
     };
   };
 
   # i3status config
-  programs.i3status = {
-    enable = true;
-    general = {
-      colors = true;
-      interval = 5;
-    };
-    modules = {
-      "disk /" = {
-        position = 1;
-        settings.format = "/ %avail";
-      };
-      "memory" = {
-        position = 2;
-        settings.format = "MEM %percentage_used";
-      };
-      "cpu_usage" = {
-        position = 3;
-        settings.format = "CPU %usage";
-      };
-      "tztime local" = {
-        position = 4;
-        settings.format = "%Y-%m-%d %H:%M";
-      };
-    };
-  };
-
+  # programs.i3status = {
+  #   enable = false;
+  #   general = {
+  #     colors = true;
+  #     interval = 5;
+  #   };
+  #   modules = {
+  #     "disk /" = {
+  #       position = 1;
+  #       settings.format = "/ %avail";
+  #     };
+  #     "memory" = {
+  #       position = 2;
+  #       settings.format = "MEM %percentage_used";
+  #     };
+  #     "cpu_usage" = {
+  #       position = 3;
+  #       settings.format = "CPU %usage";
+  #     };
+  #     "tztime local" = {
+  #       position = 4;
+  #       settings.format = "%Y-%m-%d %H:%M";
+  #     };
+  #   };
+  # };
+  #
   # Required packages
   home.packages = with pkgs; [
     xclip

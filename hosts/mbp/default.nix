@@ -7,6 +7,7 @@
         ../../modules/darwin/fonts.nix
         ../../modules/darwin/services.nix
         ../../modules/darwin/stylix.nix
+        ../../modules/nixos/tailscale.nix
         inputs.home-manager.darwinModules.home-manager
         inputs.nix-homebrew.darwinModules.nix-homebrew
         inputs.stylix.darwinModules.stylix
