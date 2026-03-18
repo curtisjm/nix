@@ -25,7 +25,6 @@
     cmake
     gcc
     claude-code
-    opencode
     keyd
     fastfetch
     google-chrome

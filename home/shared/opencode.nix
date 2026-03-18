@@ -1,5 +1,6 @@
-{...}: {
-  programs.vesktop = {
+{ ... }:
+{
+  programs.opencode = {
     enable = true;
   };
 }
