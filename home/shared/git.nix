@@ -1,11 +1,11 @@
 { ... }:
 {
-    programs.git = {
-        enable = true;
-        userName = "Curtis Mitchell";
-        userEmail = "70792951+curtisjm@users.noreply.github.com";
-	settings = {
-		pull.rebase = false;
-	};
+  programs.git = {
+    enable = true;
+    userName = "Curtis Mitchell";
+    userEmail = "70792951+curtisjm@users.noreply.github.com";
+    settings = {
+      pull.rebase = false;
     };
+  };
 }
