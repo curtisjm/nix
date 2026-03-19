@@ -24,7 +24,6 @@
     yt-dlp
     cmake
     gcc
-    claude-code
     keyd
     fastfetch
     google-chrome
