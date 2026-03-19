@@ -1,0 +1,20 @@
+{ ... }:
+{
+  programs.claude-code = {
+    enable = true;
+    settings = {
+      extraKnownMarketplaces = {
+        superpowers-marketplace = {
+          source = {
+            source = "github";
+            repo = "obra/superpowers-marketplace";
+          };
+        };
+      };
+
+      enabledPlugins = {
+        "superpowers@superpowers-marketplace" = true;
+      };
+    };
+  };
+}

@@ -2,7 +2,8 @@
   pkgs,
   hostConfig,
   ...
-}: {
+}:
+{
   imports = [
     ../shared/zsh.nix
     ../shared/starship.nix
@@ -15,6 +16,7 @@
     ../shared/nvf
     ../shared/tmux.nix
     ../shared/opencode.nix
+    ../shared/claude-code.nix
     ../nixos/hyprland.nix
     ../nixos/kitty.nix
     ../nixos/noctalia.nix
