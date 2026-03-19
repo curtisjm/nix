@@ -50,6 +50,16 @@ The module is imported by:
 
 Result: desktop, thinkpad (via laptop profile), and darwin all receive the same Claude Code + Superpowers setup from one shared file.
 
+## Tailscale Configuration
+
+- Linux hosts use `modules/nixos/tailscale.nix`.
+- Darwin hosts use `modules/darwin/tailscale.nix`.
+
+This split keeps platform-specific options isolated while preserving common behavior:
+
+- NixOS applies `--shields-up` with `services.tailscale.extraSetFlags`.
+- Darwin enables `services.tailscale` and applies `tailscale set --shields-up` during activation.
+
 ## Why This Shape
 
 - Shared behavior is centralized in `home/shared/` to avoid duplication.

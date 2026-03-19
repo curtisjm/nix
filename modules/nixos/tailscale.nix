@@ -7,7 +7,7 @@
 {
   services.tailscale = {
     enable = true;
-    extraUpFlags = [ "--shields-up" ];
+    extraSetFlags = [ "--shields-up" ];
     useRoutingFeatures = "client";
   };
 
