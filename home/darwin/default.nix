@@ -11,6 +11,7 @@
     ../shared/git.nix
     ../shared/ghostty.nix
     ../shared/tmux.nix
+    ../shared/codex.nix
     ../shared/claude-code.nix
   ];
 

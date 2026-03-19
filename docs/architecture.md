@@ -50,6 +50,25 @@ The module is imported by:
 
 Result: desktop, thinkpad (via laptop profile), and darwin all receive the same Claude Code + Superpowers setup from one shared file.
 
+## Codex and Superpowers
+
+Codex configuration now lives in:
+
+- `home/shared/codex.nix`
+
+This module enables `programs.codex`, turns on Codex multi-agent support, and wires Superpowers skills declaratively:
+
+- `features.multi_agent = true`
+- `skills.superpowers = inputs.superpowers + "/skills"`
+
+The module is imported by:
+
+- `home/desktop/default.nix`
+- `home/laptop/default.nix`
+- `home/darwin/default.nix`
+
+Result: desktop, thinkpad (via laptop profile), and darwin get Codex with the Superpowers skillset via Home Manager.
+
 ## Tailscale Configuration
 
 - Linux hosts use `modules/nixos/tailscale.nix`.

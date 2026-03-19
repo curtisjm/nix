@@ -38,40 +38,43 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    superpowers = {
+      url = "github:obra/superpowers";
+      flake = false;
+    };
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    nix-darwin,
-    nix-homebrew,
-    home-manager,
-    hyprland,
-    hyprland-plugins,
-    stylix,
-    nixos-hardware,
-    noctalia,
-    zen-browser,
-    nvf,
-    agenix,
-  }: let
-    # Common settings
-    commonConfig = {
-      timezone = "America/Los_Angeles";
-      locale = "en_US.UTF-8";
-    };
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      nix-darwin,
+      nix-homebrew,
+      home-manager,
+      hyprland,
+      hyprland-plugins,
+      stylix,
+      nixos-hardware,
+      noctalia,
+      zen-browser,
+      nvf,
+      agenix,
+      superpowers,
+    }:
+    let
+      # Common settings
+      commonConfig = {
+        timezone = "America/Los_Angeles";
+        locale = "en_US.UTF-8";
+      };
 
-    # Per-host settings
-    vmConfig =
-      commonConfig
-      // {
+      # Per-host settings
+      vmConfig = commonConfig // {
         username = "citrus";
         hostname = "nixos";
       };
 
-    thinkpadConfig =
-      commonConfig
-      // {
+      thinkpadConfig = commonConfig // {
         username = "curtis";
         hostname = "nixos";
         monitors = [ "eDP-1, 2880x1800@120, auto, 2" ];
@@ -79,9 +82,7 @@
         hasNvidia = false;
       };
 
-    desktopConfig =
-      commonConfig
-      // {
+      desktopConfig = commonConfig // {
         username = "curtis";
         hostname = "nixos-desktop";
         monitors = [ ", preferred, auto, 1" ];
@@ -89,65 +90,64 @@
         hasNvidia = true;
       };
 
-    mbpConfig =
-      commonConfig
-      // {
+      mbpConfig = commonConfig // {
         username = "curtis";
         hostname = "mbp";
       };
-  in {
-    nixosConfigurations = {
-      parallels-vm = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        modules = [./hosts/parallels-vm];
-        specialArgs = {
-          inherit self inputs;
-          hostConfig = vmConfig;
+    in
+    {
+      nixosConfigurations = {
+        parallels-vm = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = [ ./hosts/parallels-vm ];
+          specialArgs = {
+            inherit self inputs;
+            hostConfig = vmConfig;
+          };
+        };
+        utm-vm = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = [ ./hosts/utm-vm ];
+          specialArgs = {
+            inherit self inputs;
+            hostConfig = vmConfig;
+          };
+        };
+        kvm = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [ ./hosts/kvm ];
+          specialArgs = {
+            inherit self inputs;
+            hostConfig = vmConfig;
+          };
+        };
+        desktop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [ ./hosts/desktop ];
+          specialArgs = {
+            inherit self inputs;
+            hostConfig = desktopConfig;
+          };
+        };
+        thinkpad = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [ ./hosts/thinkpad ];
+          specialArgs = {
+            inherit self inputs;
+            hostConfig = thinkpadConfig;
+          };
         };
       };
-      utm-vm = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        modules = [./hosts/utm-vm];
-        specialArgs = {
-          inherit self inputs;
-          hostConfig = vmConfig;
-        };
-      };
-      kvm = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [./hosts/kvm];
-        specialArgs = {
-          inherit self inputs;
-          hostConfig = vmConfig;
-        };
-      };
-      desktop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [./hosts/desktop];
-        specialArgs = {
-          inherit self inputs;
-          hostConfig = desktopConfig;
-        };
-      };
-      thinkpad = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [./hosts/thinkpad];
-        specialArgs = {
-          inherit self inputs;
-          hostConfig = thinkpadConfig;
-        };
-      };
-    };
 
-    darwinConfigurations = {
-      mbp = nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        modules = [./hosts/mbp];
-        specialArgs = {
-          inherit self inputs;
-          hostConfig = mbpConfig;
+      darwinConfigurations = {
+        mbp = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [ ./hosts/mbp ];
+          specialArgs = {
+            inherit self inputs;
+            hostConfig = mbpConfig;
+          };
         };
       };
     };
-  };
 }
