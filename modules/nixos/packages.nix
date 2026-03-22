@@ -29,6 +29,7 @@
     google-chrome
     openssl
     nodejs
+    code-cursor-fhs
 
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     protonvpn-gui
