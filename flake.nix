@@ -62,92 +62,24 @@
       superpowers,
     }:
     let
-      # Common settings
-      commonConfig = {
-        timezone = "America/Los_Angeles";
-        locale = "en_US.UTF-8";
+      lib = nixpkgs.lib;
+      hostInventory = import ./lib/hosts.nix;
+      mkNixosHost = import ./lib/mk-nixos-host.nix {
+        inherit inputs self nixpkgs;
       };
-
-      # Per-host settings
-      vmConfig = commonConfig // {
-        username = "citrus";
-        hostname = "nixos";
+      mkDarwinHost = import ./lib/mk-darwin-host.nix {
+        inherit inputs self nix-darwin;
       };
-
-      thinkpadConfig = commonConfig // {
-        username = "curtis";
-        hostname = "nixos";
-        monitors = [ "eDP-1, 2880x1800@120, auto, 2" ];
-        isLaptop = true;
-        hasNvidia = false;
-      };
-
-      desktopConfig = commonConfig // {
-        username = "curtis";
-        hostname = "nixos-desktop";
-        monitors = [ ", preferred, auto, 1" ];
-        isLaptop = false;
-        hasNvidia = true;
-      };
-
-      mbpConfig = commonConfig // {
-        username = "curtis";
-        hostname = "mbp";
-      };
+      activeNixosHosts = lib.filterAttrs (_: metadata: metadata.platform == "nixos") hostInventory.hosts;
+      activeDarwinHosts = lib.filterAttrs (
+        _: metadata: metadata.platform == "darwin"
+      ) hostInventory.hosts;
     in
     {
-      nixosConfigurations = {
-        parallels-vm = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          modules = [ ./hosts/parallels-vm ];
-          specialArgs = {
-            inherit self inputs;
-            hostConfig = vmConfig;
-          };
-        };
-        utm-vm = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          modules = [ ./hosts/utm-vm ];
-          specialArgs = {
-            inherit self inputs;
-            hostConfig = vmConfig;
-          };
-        };
-        kvm = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./hosts/kvm ];
-          specialArgs = {
-            inherit self inputs;
-            hostConfig = vmConfig;
-          };
-        };
-        desktop = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./hosts/desktop ];
-          specialArgs = {
-            inherit self inputs;
-            hostConfig = desktopConfig;
-          };
-        };
-        thinkpad = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./hosts/thinkpad ];
-          specialArgs = {
-            inherit self inputs;
-            hostConfig = thinkpadConfig;
-          };
-        };
-      };
+      overlays = import ./overlays;
 
-      darwinConfigurations = {
-        mbp = nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          modules = [ ./hosts/mbp ];
-          specialArgs = {
-            inherit self inputs;
-            hostConfig = mbpConfig;
-          };
-        };
-      };
+      nixosConfigurations = lib.mapAttrs (_: metadata: mkNixosHost metadata) activeNixosHosts;
+
+      darwinConfigurations = lib.mapAttrs (_: metadata: mkDarwinHost metadata) activeDarwinHosts;
     };
 }
