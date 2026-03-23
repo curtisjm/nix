@@ -2,31 +2,45 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, hostConfig, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  hostConfig,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-        inputs.home-manager.nixosModules.home-manager
-	inputs.stylix.nixosModules.stylix
-	../../modules/nixos/packages.nix
-	# ../../modules/nixos/security-packages.nix
-	../../modules/nixos/i3.nix  # Use i3 instead of sway (X11 works better in Parallels)
-	# ../../modules/nixos/sway.nix
-	# ../../modules/nixos/hyprland.nix
-	../../modules/nixos/keyd.nix
-	../../modules/nixos/fonts.nix
-	../../modules/nixos/stylix.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.home-manager
+    ../../../modules/nixos/packages.nix
+    ../../../modules/nixos/security-packages.nix
+    # ../../../modules/nixos/hyprland.nix
+    ../../../modules/nixos/sway.nix
+    ../../../modules/nixos/keyd.nix
+    ../../../modules/nixos/fonts.nix
+  ];
 
-   home-manager = {
-        extraSpecialArgs = { inherit inputs hostConfig; };
-        users.${hostConfig.username} = import ../../home/vm;  # VM-specific home config
-        useGlobalPkgs = true;
-        useUserPackages = true;
-        backupFileExtension = "backup";
-    };
+  home-manager = {
+    extraSpecialArgs = { inherit inputs hostConfig; };
+    users.${hostConfig.username} = import ../../../home/laptop;
+    useGlobalPkgs = true;
+    useUserPackages = true;
+  };
+
+  # Add cachix for Hyperland
+  nix.settings = {
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+  };
+
+  nix.settings.experimental-features = "nix-command flakes";
+
+  users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -34,9 +48,6 @@
 
   networking.hostName = hostConfig.hostname;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  
-	users.defaultUserShell = pkgs.zsh;
-	programs.zsh.enable = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -68,13 +79,13 @@
   # services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
-  # services.xserver.xkb = {
-  #   layout = "us";
-  #   variant = "";
-  # };
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services.printing.enable = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -98,8 +109,11 @@
   users.users.${hostConfig.username} = {
     isNormalUser = true;
     description = hostConfig.username;
-    extraGroups = [ "networkmanager" "wheel" "video" "render" ];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    packages = with pkgs; [ ];
   };
 
   # Install firefox.
@@ -111,29 +125,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+    neovim
     git
     tmux
-    neovim
-    mesa-demos  # for glxinfo debugging
   ];
-
-nix.settings.experimental-features = "nix-command flakes";
-
-# hardware.parallels.enable = true;
-# hardware.graphics.enable = true;
-
-# hardware.graphics = {
-#   enable = true;
-  # extraPackages = with pkgs; [
-  #   mesa
-  # ];
-# };
-
-# Force software rendering for VM compatibility
-# environment.sessionVariables = {
-#   LIBGL_ALWAYS_SOFTWARE = "1";
-#   WLR_RENDERER_ALLOW_SOFTWARE = "1";
-# };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -161,5 +158,5 @@ nix.settings.experimental-features = "nix-command flakes";
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
-}
 
+}
