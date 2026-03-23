@@ -30,12 +30,23 @@ This keeps host-level concerns (kernel, services, hardware) separate from user-l
 ## System Profile Structure
 
 - `modules/nixos/base.nix`: Common Linux system defaults driven by `hostConfig` metadata.
+- `modules/nixos/packages.nix`: Package category catalog for NixOS hosts.
 - `modules/nixos/profiles/workstation.nix`: Shared desktop/laptop composition for active Linux workstations.
 - `modules/nixos/profiles/vm.nix`: Shared VM composition for active Linux guest systems.
 - `modules/darwin/base.nix`: Common Darwin metadata wiring for the primary user, Home Manager, nix settings, and host platform.
 - `modules/darwin/profiles/default.nix`: Shared Darwin module composition.
 
 This keeps host entrypoints focused on hardware imports, guest-specific boot settings, and machine-only tweaks.
+
+## Package Categories
+
+- `modules/nixos/packages.nix` groups optional system packages into named categories.
+- Active NixOS role profiles set default categories through `custom.packageCategories`.
+- Individual hosts can replace those defaults by setting `custom.packageCategories` directly.
+- Workstations currently opt into CLI, dev, containers, browsers, communication platforms, and desktop utilities.
+- VM profiles currently opt into CLI, dev, and containers only.
+
+This keeps the category catalog in one place while letting each role opt into only the package groups it needs.
 
 ## Inactive Hosts
 

@@ -32,6 +32,15 @@
     transparency = true;
   };
 
+  custom.packageCategories = lib.mkDefault [
+    "cli"
+    "dev"
+    "containers"
+    "browsers"
+    "communicationPlatforms"
+    "desktopUtilities"
+  ];
+
   hardware.bluetooth.enable = true;
 
   home-manager = {

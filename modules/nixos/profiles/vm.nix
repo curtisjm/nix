@@ -1,6 +1,7 @@
 {
   hostConfig,
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -20,6 +21,12 @@
 
   custom.keyd.enable = true;
   custom.theme.enable = true;
+
+  custom.packageCategories = lib.mkDefault [
+    "cli"
+    "dev"
+    "containers"
+  ];
 
   home-manager = {
     extraSpecialArgs = { inherit inputs hostConfig; };

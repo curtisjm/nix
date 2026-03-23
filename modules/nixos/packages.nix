@@ -1,41 +1,75 @@
 {
+  config,
+  lib,
   pkgs,
   inputs,
   ...
 }:
-{
-  environment.systemPackages = with pkgs; [
-    ripgrep
-    fd
-    go
-    python3
-    ruff
-    pyright
-    nil
-    cargo
-    rustc
-    docker
-    docker-compose
-    colima
-    bat
-    tldr
-    btop
-    rust-analyzer
-    yt-dlp
-    cmake
-    gcc
-    keyd
-    fastfetch
-    google-chrome
-    openssl
-    nodejs
-    code-cursor-fhs
+let
+  categories = {
+    cli = with pkgs; [
+      ripgrep
+      fd
+      bat
+      tldr
+      btop
+      yt-dlp
+      openssl
+      fastfetch
+      keyd
+    ];
 
-    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-    protonvpn-gui
-    darktable
-    zoom-us
-    slack
-    telegram-desktop
-  ];
+    dev = with pkgs; [
+      go
+      python3
+      ruff
+      pyright
+      nil
+      cargo
+      rustc
+      rust-analyzer
+      cmake
+      gcc
+      nodejs
+      code-cursor-fhs
+    ];
+
+    containers = with pkgs; [
+      docker
+      docker-compose
+      colima
+    ];
+
+    browsers = with pkgs; [
+      google-chrome
+      inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    ];
+
+    communicationPlatforms = with pkgs; [
+      zoom-us
+      slack
+      telegram-desktop
+    ];
+
+    desktopUtilities = with pkgs; [
+      protonvpn-gui
+      darktable
+    ];
+  };
+in
+{
+  options.custom.packageCategories = lib.mkOption {
+    type = with lib.types; listOf (enum (builtins.attrNames categories));
+    default = [ ];
+    description = "Optional package categories to add to environment.systemPackages.";
+    example = [
+      "cli"
+      "dev"
+      "browsers"
+    ];
+  };
+
+  config.environment.systemPackages = lib.unique (
+    lib.concatLists (map (category: categories.${category}) config.custom.packageCategories)
+  );
 }
