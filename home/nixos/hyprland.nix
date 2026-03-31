@@ -4,9 +4,11 @@
   osConfig,
   hostConfig,
   ...
-}: let
+}:
+let
   transparency = osConfig.custom.theme.transparency or false;
-in {
+in
+{
   imports = [
     ./swappy.nix
     ./hypridle.nix
@@ -42,10 +44,11 @@ in {
 
         repeat_rate = 50;
         repeat_delay = 300;
-      } // lib.optionalAttrs hostConfig.isLaptop {
+      }
+      // lib.optionalAttrs hostConfig.isLaptop {
         touchpad = {
           natural_scroll = true;
-          clickfinger_behavior = true;
+          # clickfinger_behavior = true;
         };
       };
 
@@ -68,14 +71,8 @@ in {
         rounding = 6;
         rounding_power = 3;
 
-        active_opacity =
-          if transparency
-          then 0.85
-          else 1.0;
-        inactive_opacity =
-          if transparency
-          then 0.85
-          else 1.0;
+        active_opacity = if transparency then 0.85 else 1.0;
+        inactive_opacity = if transparency then 0.85 else 1.0;
         fullscreen_opacity = 1.0;
 
         shadow = {
@@ -214,7 +211,8 @@ in {
       # Allow on lock screen
       bindl = [
         ", XF86AudioMute, exec, noctalia-shell ipc call volume muteOutput"
-      ] ++ lib.optionals hostConfig.isLaptop [
+      ]
+      ++ lib.optionals hostConfig.isLaptop [
         ", switch:Lid Switch, exec, systemctl suspend"
       ];
 
@@ -233,7 +231,8 @@ in {
         ", XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase"
         ", XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease"
       ];
-    } // lib.optionalAttrs hostConfig.isLaptop {
+    }
+    // lib.optionalAttrs hostConfig.isLaptop {
       device = {
         name = "tpps/2-elan-trackpoint";
         accel_profile = "flat";

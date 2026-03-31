@@ -54,6 +54,7 @@ let
     desktopUtilities = with pkgs; [
       protonvpn-gui
       darktable
+      texliveFull
     ];
   };
 in

@@ -42,6 +42,10 @@
       url = "github:obra/superpowers";
       flake = false;
     };
+    openai-skills = {
+      url = "github:openai/skills";
+      flake = false;
+    };
   };
 
   outputs =
@@ -60,6 +64,7 @@
       nvf,
       agenix,
       superpowers,
+      openai-skills,
     }:
     let
       lib = nixpkgs.lib;
