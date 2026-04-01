@@ -31,7 +31,7 @@
     jdk
 
     # Other
-    nixfmt-rfc-style # or nixfmt-classic
+    nixfmt
     libxml2 # includes xmllint
     pandoc # for markdown preview
   ];

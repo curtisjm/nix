@@ -18,7 +18,6 @@
 
     # Language support - nvf handles LSP, treesitter, formatting automatically
     languages = {
-      enableLSP = true;
       enableFormat = true;
       enableTreesitter = true;
       enableExtraDiagnostics = true;

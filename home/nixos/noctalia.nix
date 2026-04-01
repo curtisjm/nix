@@ -5,13 +5,15 @@
   osConfig,
   hostConfig,
   ...
-}:
-let
+}: let
   transparency = osConfig.custom.theme.transparency or false;
-  opacity = lib.mkForce (if transparency then 0.75 else 1.0);
+  opacity = lib.mkForce (
+    if transparency
+    then 0.75
+    else 1.0
+  );
   radius = lib.mkForce 0.3;
-in
-{
+in {
   imports = [
     inputs.noctalia.homeModules.default
   ];
@@ -37,9 +39,6 @@ in
         # 	hideOnOverview = false;
         widgets = {
           left = [
-            # {
-            # 	id = "Launcher";
-            # }
             {
               id = "ControlCenter";
             }
@@ -48,6 +47,9 @@ in
             }
             {
               id = "NotificationHistory";
+            }
+            {
+              id = "Launcher";
             }
             # {
             # 	id = "ActiveWindow";
@@ -61,27 +63,32 @@ in
               id = "Workspace";
             }
           ];
-          right = [
-            {
-              id = "Tray";
-            }
-          ] ++ lib.optionals hostConfig.isLaptop [
-            {
-              id = "Battery";
-            }
-          ] ++ [
-            {
-              id = "Volume";
-            }
-          ] ++ lib.optionals hostConfig.isLaptop [
-            {
-              id = "Brightness";
-            }
-          ] ++ [
-            {
-              id = "SystemMonitor";
-            }
-          ];
+          right =
+            [
+              {
+                id = "Tray";
+              }
+            ]
+            ++ lib.optionals hostConfig.isLaptop [
+              {
+                id = "Battery";
+              }
+            ]
+            ++ [
+              {
+                id = "Volume";
+              }
+            ]
+            ++ lib.optionals hostConfig.isLaptop [
+              {
+                id = "Brightness";
+              }
+            ]
+            ++ [
+              {
+                id = "SystemMonitor";
+              }
+            ];
         };
       };
       general = {
