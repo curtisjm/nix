@@ -1,7 +1,5 @@
-{ pkgs, self, ... }:
+{ pkgs, ... }:
 {
-  nixpkgs.overlays = [ self.overlays.default ];
-
   environment.systemPackages = with pkgs; [
     openvpn
     nmap

@@ -1,4 +1,23 @@
-{pkgs, ...}: {
+{pkgs, ...}:
+let
+  # Tree-sitter grammars for Emacs 30 built-in treesit
+  treesitGrammars = pkgs.emacsPackages.treesit-grammars.with-grammars (grammars: with grammars; [
+    tree-sitter-typescript
+    tree-sitter-tsx
+    tree-sitter-javascript
+    tree-sitter-python
+    tree-sitter-json
+    tree-sitter-yaml
+    tree-sitter-bash
+    tree-sitter-c
+    tree-sitter-cpp
+    tree-sitter-go
+    tree-sitter-rust
+    tree-sitter-lua
+    tree-sitter-nix
+  ]);
+in
+{
   environment.systemPackages = with pkgs; [
     # required dependencies
     git
@@ -9,6 +28,13 @@
     coreutils # basic GNU utilities
     fd
     clang
+
+    # Tree-sitter grammars (Emacs 30 treesit)
+    treesitGrammars
+
+    # TypeScript
+    typescript
+    typescript-language-server
 
     # Shell
     shellcheck

@@ -14,7 +14,9 @@
     enable = true;
     settings = {
       model = "opus";
+      theme = "dark-ansi";
       includeCoAuthoredBy = false;
+      autoCompact = false;
 
       permissions = {
         defaultMode = "acceptEdits";

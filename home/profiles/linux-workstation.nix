@@ -30,5 +30,5 @@
 
   home.username = hostConfig.username;
   home.homeDirectory = hostConfig.homeDirectory;
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 }

@@ -1,5 +1,6 @@
 {
   hostConfig,
+  self,
   lib,
   pkgs,
   ...
@@ -52,6 +53,7 @@ in
   programs.firefox.enable = true;
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [ self.overlays.default ];
 
   environment.systemPackages = with pkgs; [
     git
