@@ -2,6 +2,7 @@
 {
   home.packages = [
     pkgs.playwright-driver.browsers
+    pkgs.beads
   ];
 
   home.sessionVariables = {
@@ -15,7 +16,7 @@
     settings = {
       model = "opus";
       theme = "dark-ansi";
-      includeCoAuthoredBy = false;
+      # includeCoAuthoredBy = false;
       autoCompact = false;
 
       permissions = {

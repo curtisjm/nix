@@ -46,6 +46,7 @@
       url = "github:openai/skills";
       flake = false;
     };
+    gastown.url = "github:gastownhall/gastown";
   };
 
   outputs =
@@ -65,6 +66,7 @@
       agenix,
       superpowers,
       openai-skills,
+      gastown,
     }:
     let
       lib = nixpkgs.lib;

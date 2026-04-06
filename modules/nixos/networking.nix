@@ -2,8 +2,9 @@
   config,
   lib,
   ...
-}: {
-  age.identityPaths = ["/home/curtis/.ssh/id_ed25519"];
+}:
+{
+  age.identityPaths = [ "/home/curtis/.ssh/id_ed25519" ];
 
   age.secrets = {
     eduroam-identity.file = ../../secrets/eduroam-identity.age;
@@ -35,7 +36,6 @@
         eap = "peap;";
         identity = "$EDUROAM_IDENTITY";
         password = "$EDUROAM_PASSWORD";
-        phase1-peaplabel = "0";
         phase2-auth = "mschapv2";
       };
       ipv4 = {
@@ -47,3 +47,5 @@
     };
   };
 }
+
+# connect to eduroam: nmcli --ask connection up eduroam

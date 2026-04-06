@@ -18,6 +18,7 @@
     ../shared/opencode.nix
     ../shared/codex.nix
     ../shared/claude-code.nix
+    ../shared/gastown.nix
     ../nixos/hyprland.nix
     ../nixos/kitty.nix
     ../nixos/noctalia.nix
