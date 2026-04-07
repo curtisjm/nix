@@ -26,6 +26,7 @@
   nixpkgs = {
     hostPlatform = system;
     config.allowUnfree = true;
+    overlays = [ self.overlays.default ];
   };
 
   nix-homebrew = {

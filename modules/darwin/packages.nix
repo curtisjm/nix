@@ -22,7 +22,7 @@
         bat
         tldr
         btop
-        jankyborders
+        # jankyborders
         shortcat
         rust-analyzer
         yt-dlp
@@ -31,5 +31,6 @@
         opencode
         claude-code
         utm
+        telegram-desktop
     ];
 }

@@ -15,6 +15,7 @@
 
     initContent = ''
       bindkey -v
+      eval "$(/opt/homebrew/bin/brew shellenv)"
       export PATH="/Library/TeX/texbin:$PATH"
       export PATH="$HOME/.emacs.d/bin:$PATH"
       cd() {

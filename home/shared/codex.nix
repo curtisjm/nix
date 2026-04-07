@@ -1,5 +1,7 @@
-{ inputs, pkgs, ... }:
+{ inputs, pkgs, lib, ... }:
 let
+  isLinux = pkgs.stdenv.isLinux;
+
   superpowersSkillsDir = inputs.superpowers + "/skills";
   superpowersSkills =
     let
@@ -24,15 +26,16 @@ let
     frontend-skill = openaiCuratedSkillsDir + "/frontend-skill";
     security-best-practices = openaiCuratedSkillsDir + "/security-best-practices";
     security-threat-model = openaiCuratedSkillsDir + "/security-threat-model";
+    sentry = openaiCuratedSkillsDir + "/sentry";
   };
 in
 {
-  home.packages = [
-    pkgs.bubblewrap
+  home.packages = lib.mkIf isLinux [
     pkgs.playwright-driver.browsers
+    pkgs.bubblewrap
   ];
 
-  home.sessionVariables = {
+  home.sessionVariables = lib.mkIf isLinux {
     PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
     PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
     PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
@@ -52,7 +55,7 @@ in
       features = {
         multi_agent = true;
       };
-      mcp_servers = {
+      mcp_servers = lib.mkIf isLinux {
         playwright = {
           command = "npx";
           args = [

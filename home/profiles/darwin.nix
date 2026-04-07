@@ -14,6 +14,7 @@
     ../shared/tmux.nix
     ../shared/codex.nix
     ../shared/claude-code.nix
+    ../nixos/direnv.nix
   ];
 
   home.username = hostConfig.username;

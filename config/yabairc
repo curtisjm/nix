@@ -39,7 +39,7 @@ yabai -m config window_shadow float
 yabai -m config window_opacity off
 yabai -m config active_window_opacity 1.0
 # yabai -m rule --add app="^(Discord)$" opacity=0.95
-yabai -m rule --add app="^(Messages|Finder|Notion|Activity Monitor|Raycast|Discord)$" opacity=0.85
+# yabai -m rule --add app="^(Messages|Finder|Notion|Activity Monitor|Raycast|Discord)$" opacity=0.85
 # yabai -m config normal_window_opacity 0.9
 
 # Auto-focus first window when switching spaces
@@ -50,5 +50,4 @@ yabai -m signal --add event=window_destroyed action="yabai -m window --focus rec
 yabai -m rule --add app="^(Calculator|Software Update|Dictionary|VLC|System Preferences|System Settings|zoom.us|Photo Booth|Archive Utility|Python|App Store)$" manage=off
 
 # borders active_color=0xff8f9591 inactive_color=0xff31363c width=5.0 &
-borders active_color=0xffd8d3b7 inactive_color=0xff4b5568 width=5.0 &
-
+# borders active_color=0xffd8d3b7 inactive_color=0xff4b5568 width=5.0 &

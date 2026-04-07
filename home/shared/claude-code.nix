@@ -1,11 +1,14 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
+let
+  isLinux = pkgs.stdenv.isLinux;
+in
 {
-  home.packages = [
-    pkgs.playwright-driver.browsers
+  home.packages = lib.mkIf isLinux [
     pkgs.beads
+    pkgs.playwright-driver.browsers
   ];
 
-  home.sessionVariables = {
+  home.sessionVariables = lib.mkIf isLinux {
     PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
     PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
     PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
@@ -64,10 +67,11 @@
         "claude-md-management@claude-plugins-official" = true;
         "vercel@claude-plugins-official" = true;
         "linear@claude-plugins-official" = true;
+        "sentry@claude-plugins-official" = true;
       };
     };
 
-    mcpServers = {
+    mcpServers = lib.mkIf isLinux {
       playwright = {
         command = "npx";
         args = [
