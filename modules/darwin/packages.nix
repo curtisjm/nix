@@ -17,6 +17,7 @@
         colima
         stow
         skimpdf
+        texliveFull
         uv
         vscode
         bat
@@ -25,11 +26,19 @@
         # jankyborders
         shortcat
         rust-analyzer
+
+        # Language servers
+        typescript-language-server
+        gopls
+        pyright
+        clang-tools # clangd for C/C++
+        jdt-language-server
+        lua-language-server
         yt-dlp
         cmake
         google-chrome
         opencode
-        claude-code
+        # claude-code  # installed via Homebrew for latest version
         utm
         telegram-desktop
     ];
