@@ -39,6 +39,9 @@
       bind -T copy-mode-vi y send-keys -X copy-selection
       unbind -T copy-mode-vi MouseDragEnd1Pane
 
+      # Gastown
+       bind-key g run-shell "gt agents menu"
+
       # Vim-like pane switching (optional - uncomment if you want)
       # bind -r ^ last-window
       # bind -r k select-pane -U
