@@ -7,6 +7,9 @@
             # "sketchybar"
             "gastown"
             "beads"
+            "vercel-cli"
+            "sentry-cli"
+            "playwright-cli"
         ];
         casks = [
             "arc"
@@ -30,6 +33,8 @@
             "t3-code"
             "codex-app"
             "cursor"
+            "claude-code@latest"
+            "slack"
         ];
         taps = [
             "FelixKratz/formulae" 
