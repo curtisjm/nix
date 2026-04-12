@@ -35,6 +35,7 @@
             "cursor"
             "claude-code@latest"
             "slack"
+            "warp"
         ];
         taps = [
             "FelixKratz/formulae" 
