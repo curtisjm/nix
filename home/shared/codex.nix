@@ -44,6 +44,7 @@ in
   programs.codex = {
     enable = true;
     skills = superpowersSkills // openaiSkills;
+    package = null;
 
     settings = {
       model = "gpt-5.4";
