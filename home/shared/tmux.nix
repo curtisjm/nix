@@ -40,7 +40,8 @@
       unbind -T copy-mode-vi MouseDragEnd1Pane
 
       # Gastown
-       bind-key g run-shell "gt agents menu"
+      set-hook -g after-new-session 'bind-key -T prefix g run-shell "gt agents menu"'
+      bind-key g run-shell "gt agents menu"
 
       # Vim-like pane switching (optional - uncomment if you want)
       # bind -r ^ last-window
