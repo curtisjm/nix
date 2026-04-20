@@ -200,12 +200,12 @@ shift + alt - c : yabai -m window --space 7;
 shift + alt - i : yabai -m window --space 8;
 shift + alt - o : yabai -m window --space 9;
 shift + alt - n : yabai -m window --space 10;
-# shift + alt - v : yabai -m window --space 11;
+shift + alt - v : yabai -m window --space 11;
 shift + alt - a : yabai -m window --space 12;
 shift + alt - d : yabai -m window --space 13;
 shift + alt - f : yabai -m window --space 14;
 shift + alt - e : yabai -m window --space 15;
-shift + alt - p : yabai -m window --space 16;
+shift + alt - g : yabai -m window --space 16;
 
 alt - 1 : yabai -m query --spaces --space 1 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 1
 alt - 2 : yabai -m query --spaces --space 2 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 2
@@ -223,7 +223,7 @@ alt - a : yabai -m query --spaces --space 12 | jq -r '.windows[0]' | xargs yabai
 alt - d : yabai -m query --spaces --space 13 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 13
 alt - f : yabai -m query --spaces --space 14 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 14
 alt - e : yabai -m query --spaces --space 15 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 15
-alt - p : yabai -m query --spaces --space 16 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 16
+alt - g : yabai -m query --spaces --space 16 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 16
 
 # alt - 1 : SPACES=($(yabai -m query --displays --display | jq '.spaces[]')) && [[ -n $SPACES[1] ]] && yabai -m space --focus $SPACES[1]
 # alt - 2 : SPACES=($(yabai -m query --displays --display | jq '.spaces[]')) && [[ -n $SPACES[2] ]] && yabai -m space --focus $SPACES[2]
