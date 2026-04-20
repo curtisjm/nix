@@ -41,5 +41,9 @@
         # claude-code  # installed via Homebrew for latest version
         utm
         telegram-desktop
+
+        xcodegen
+        dolt
+        php
     ];
 }
