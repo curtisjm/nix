@@ -6,10 +6,12 @@
             "node"
             # "sketchybar"
             "gastown"
+            "gascity"
             "beads"
             "vercel-cli"
             "sentry-cli"
             "playwright-cli"
+            "flock"
         ];
         casks = [
             "arc"
@@ -36,9 +38,12 @@
             "claude-code@latest"
             "slack"
             "warp"
+            "codex"
         ];
         taps = [
-            "FelixKratz/formulae" 
+            "gastownhall/gascity"
+            "FelixKratz/formulae"
+            "getsentry/tools"
         ];
         masApps = {
             # "Perplexity" = 6714467650;
