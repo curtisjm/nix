@@ -47,6 +47,14 @@
       flake = false;
     };
     gastown.url = "github:gastownhall/gastown";
+    claude-code-nix = {
+      url = "github:sadjow/claude-code-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    codex-cli-nix = {
+      url = "github:sadjow/codex-cli-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -67,6 +75,8 @@
       superpowers,
       openai-skills,
       gastown,
+      claude-code-nix,
+      codex-cli-nix,
     }:
     let
       lib = nixpkgs.lib;

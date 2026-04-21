@@ -30,7 +30,7 @@ in
 
   programs.claude-code = {
     enable = true;
-    package = null;
+    package = if isLinux then pkgs.claude-code else null;
     settings = {
       model = "opus";
       theme = "dark-ansi";

@@ -44,7 +44,7 @@ in
   programs.codex = {
     enable = true;
     skills = superpowersSkills // openaiSkills;
-    package = null;
+    package = if isLinux then pkgs.codex else null;
 
     settings = {
       model = "gpt-5.4";
