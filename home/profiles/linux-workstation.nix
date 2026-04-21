@@ -1,8 +1,4 @@
-{
-  hostConfig,
-  ...
-}:
-{
+{hostConfig, ...}: {
   imports = [
     ./base.nix
     ../shared/zsh.nix
@@ -18,7 +14,7 @@
     ../shared/opencode.nix
     ../shared/codex.nix
     ../shared/claude-code.nix
-    ../shared/gastown.nix
+    # ../shared/gastown.nix
     ../nixos/hyprland.nix
     ../nixos/kitty.nix
     ../nixos/noctalia.nix

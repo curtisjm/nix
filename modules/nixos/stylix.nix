@@ -3,11 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.custom.theme;
-in
-{
+in {
   config = lib.mkIf cfg.enable {
     stylix.enable = true;
     stylix.polarity = "dark";
@@ -17,7 +15,7 @@ in
     # Theme-specific settings
     stylix.image = lib.mkMerge [
       (lib.mkIf (cfg.colorScheme == "nord") ../../wallpapers/nord-2.png)
-      (lib.mkIf (cfg.colorScheme == "gruvbox") ../../wallpapers/gruvbox-3.png)
+      (lib.mkIf (cfg.colorScheme == "gruvbox") ../../wallpapers/gruv-sushi-streets.jpg)
       (lib.mkIf (cfg.colorScheme == "tokyonight") ../../wallpapers/tokyonight-2.png)
       (lib.mkIf (cfg.colorScheme == "rose-pine") ../../wallpapers/rose-pine-2.jpg)
       (lib.mkIf (cfg.colorScheme == "ayu") ../../wallpapers/ayu-5.jpg)
@@ -26,9 +24,7 @@ in
 
     stylix.base16Scheme = lib.mkMerge [
       (lib.mkIf (cfg.colorScheme == "nord") "${pkgs.base16-schemes}/share/themes/nord.yaml")
-      (lib.mkIf (
-        cfg.colorScheme == "gruvbox"
-      ) "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml")
+      (lib.mkIf (cfg.colorScheme == "gruvbox") ../../themes/gruvbox-dark-custom.yaml)
       (lib.mkIf (cfg.colorScheme == "tokyonight") ../../themes/tokyo-night-moon-bright.yaml)
       (lib.mkIf (cfg.colorScheme == "rose-pine") "${pkgs.base16-schemes}/share/themes/rose-pine.yaml")
       (lib.mkIf (cfg.colorScheme == "ayu") "${pkgs.base16-schemes}/share/themes/ayu-dark.yaml")
@@ -83,7 +79,7 @@ in
         name = "Noto Color Emoji";
       };
       sizes = {
-        terminal = 12;
+        terminal = 11;
         applications = 11;
         desktop = 11;
       };
