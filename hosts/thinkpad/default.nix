@@ -14,7 +14,7 @@
 
   custom.theme = {
     colorScheme = "gruvbox";
-    transparency = lib.mkForce false;
+    # transparency = lib.mkForce false;
   };
 
   services.tuned.enable = true;

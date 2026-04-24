@@ -102,7 +102,7 @@ in {
         boxRadiusRatio = radius;
         screenRadiusRatio = radius;
         # animationSpeed = 2;
-        animationDisabled = true;
+        # animationDisabled = true;
         # 	compactLockScreen = false;
         # 	lockOnSuspend = true;
         # 	showSessionButtonsOnLockScreen = true;

@@ -6,6 +6,7 @@
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     hyprland.url = "github:hyprwm/Hyprland";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    gastown.url = "github:gastownhall/gastown";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,15 +39,6 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    superpowers = {
-      url = "github:obra/superpowers";
-      flake = false;
-    };
-    openai-skills = {
-      url = "github:openai/skills";
-      flake = false;
-    };
-    gastown.url = "github:gastownhall/gastown";
     claude-code-nix = {
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,48 +47,55 @@
       url = "github:sadjow/codex-cli-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    superpowers = {
+      url = "github:obra/superpowers";
+      flake = false;
+    };
+    openai-skills = {
+      url = "github:openai/skills";
+      flake = false;
+    };
   };
 
-  outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      nix-darwin,
-      nix-homebrew,
-      home-manager,
-      hyprland,
-      hyprland-plugins,
-      stylix,
-      nixos-hardware,
-      noctalia,
-      zen-browser,
-      nvf,
-      agenix,
-      superpowers,
-      openai-skills,
-      gastown,
-      claude-code-nix,
-      codex-cli-nix,
-    }:
-    let
-      lib = nixpkgs.lib;
-      hostInventory = import ./lib/hosts.nix;
-      mkNixosHost = import ./lib/mk-nixos-host.nix {
-        inherit inputs self nixpkgs;
-      };
-      mkDarwinHost = import ./lib/mk-darwin-host.nix {
-        inherit inputs self nix-darwin;
-      };
-      activeNixosHosts = lib.filterAttrs (_: metadata: metadata.platform == "nixos") hostInventory.hosts;
-      activeDarwinHosts = lib.filterAttrs (
-        _: metadata: metadata.platform == "darwin"
-      ) hostInventory.hosts;
-    in
-    {
-      overlays = import ./overlays;
-
-      nixosConfigurations = lib.mapAttrs (_: metadata: mkNixosHost metadata) activeNixosHosts;
-
-      darwinConfigurations = lib.mapAttrs (_: metadata: mkDarwinHost metadata) activeDarwinHosts;
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    nix-darwin,
+    nix-homebrew,
+    home-manager,
+    hyprland,
+    hyprland-plugins,
+    stylix,
+    nixos-hardware,
+    noctalia,
+    zen-browser,
+    nvf,
+    agenix,
+    superpowers,
+    openai-skills,
+    gastown,
+    claude-code-nix,
+    codex-cli-nix,
+  }: let
+    lib = nixpkgs.lib;
+    hostInventory = import ./lib/hosts.nix;
+    mkNixosHost = import ./lib/mk-nixos-host.nix {
+      inherit inputs self nixpkgs;
     };
+    mkDarwinHost = import ./lib/mk-darwin-host.nix {
+      inherit inputs self nix-darwin;
+    };
+    activeNixosHosts = lib.filterAttrs (_: metadata: metadata.platform == "nixos") hostInventory.hosts;
+    activeDarwinHosts =
+      lib.filterAttrs (
+        _: metadata: metadata.platform == "darwin"
+      )
+      hostInventory.hosts;
+  in {
+    overlays = import ./overlays;
+
+    nixosConfigurations = lib.mapAttrs (_: metadata: mkNixosHost metadata) activeNixosHosts;
+
+    darwinConfigurations = lib.mapAttrs (_: metadata: mkDarwinHost metadata) activeDarwinHosts;
+  };
 }
