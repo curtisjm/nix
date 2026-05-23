@@ -5,13 +5,10 @@
         brews = [
             "node"
             # "sketchybar"
-            "gastown"
-            "gascity"
-            "beads"
             "vercel-cli"
             "sentry-cli"
             "playwright-cli"
-            "flock"
+            "opencode"
         ];
         casks = [
             "arc"
@@ -31,7 +28,7 @@
             "forklift"
             "claude"
             "zoom"
-            "linear-linear"
+            "linear"
             "t3-code"
             "codex-app"
             "cursor"
@@ -39,9 +36,9 @@
             "slack"
             "warp"
             "codex"
+            "zed"
         ];
         taps = [
-            "gastownhall/gascity"
             "FelixKratz/formulae"
             "getsentry/tools"
         ];

@@ -37,7 +37,6 @@
         yt-dlp
         cmake
         google-chrome
-        opencode
         # claude-code  # installed via Homebrew for latest version
         utm
         telegram-desktop

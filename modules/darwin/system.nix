@@ -12,6 +12,7 @@
             tilesize = 50;
             expose-group-apps = false;
             mru-spaces = false;
+            launchanim = false;
         };
 
 
