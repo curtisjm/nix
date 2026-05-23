@@ -77,43 +77,23 @@ Shared modules are imported explicitly per profile to keep behavior easy to reas
 
 Modules that need an overlayed package apply `self.overlays.default` explicitly instead of importing `overlays/` as a NixOS module.
 
-## Claude Code and Superpowers
+## Coding Agents
 
-Claude Code configuration now lives in:
+Coding agent binaries are installed system-wide on Linux workstations from `numtide/llm-agents.nix`:
 
-- `home/shared/claude-code.nix`
+- `claude-code`
+- `codex`
+- `opencode`
 
-This module enables `programs.claude-code` and configures Superpowers declaratively through Claude plugin settings:
+The integration lives in:
 
-- Adds the marketplace source `obra/superpowers-marketplace`.
-- Enables plugin `superpowers@superpowers-marketplace`.
+- `modules/nixos/llm-agents.nix`
 
-The module is imported by:
+That module also configures the Numtide binary cache for agent packages.
 
-- `home/desktop/default.nix`
-- `home/laptop/default.nix`
-- `home/darwin/default.nix`
+Agent configuration is intentionally not managed by Home Manager. Runtime config for Claude Code, Codex, and OpenCode is user-managed under the tools' normal config locations.
 
-Result: desktop, thinkpad (via laptop profile), and darwin all receive the same Claude Code + Superpowers setup from one shared file.
-
-## Codex and Superpowers
-
-Codex configuration now lives in:
-
-- `home/shared/codex.nix`
-
-This module enables `programs.codex`, turns on Codex multi-agent support, and wires Superpowers skills declaratively:
-
-- `features.multi_agent = true`
-- `skills.superpowers = inputs.superpowers + "/skills"`
-
-The module is imported by:
-
-- `home/desktop/default.nix`
-- `home/laptop/default.nix`
-- `home/darwin/default.nix`
-
-Result: desktop, thinkpad (via laptop profile), and darwin get Codex with the Superpowers skillset via Home Manager.
+The Darwin host still uses Homebrew for agent packages.
 
 ## Tailscale Configuration
 

@@ -11,9 +11,6 @@
     ../shared/git.nix
     ../shared/nvf
     ../shared/tmux.nix
-    ../shared/opencode.nix
-    ../shared/codex.nix
-    ../shared/claude-code.nix
     # ../shared/gastown.nix
     ../nixos/hyprland.nix
     ../nixos/kitty.nix

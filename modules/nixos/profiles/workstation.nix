@@ -22,6 +22,7 @@
     ../regreet.nix
     ../virtualization.nix
     ../tailscale.nix
+    ../llm-agents.nix
     ../../shared/emacs.nix
   ];
 
