@@ -1,7 +1,7 @@
-{ config, pkgs, lib, osConfig, ... }:
+{ pkgs, osConfig, ... }:
 
 let
-  theme = osConfig.theme;
+  theme = osConfig.custom.theme.current;
 in
 {
   # Wlogout - A wayland-based logout menu

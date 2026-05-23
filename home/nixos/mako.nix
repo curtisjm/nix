@@ -1,7 +1,7 @@
-{ config, pkgs, lib, osConfig, ... }:
+{ osConfig, ... }:
 
 let
-  theme = osConfig.theme;
+  theme = osConfig.custom.theme.current;
 in
 {
   # Mako notification daemon with custom theming

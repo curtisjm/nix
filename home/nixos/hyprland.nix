@@ -6,6 +6,8 @@
   ...
 }: let
   transparency = osConfig.custom.theme.transparency or false;
+  theme = osConfig.custom.theme.current or {};
+  hyprTheme = theme.hyprland or {};
 in {
   imports = [
     ./swappy.nix
@@ -61,45 +63,52 @@ in {
           "__GLX_VENDOR_LIBRARY_NAME,nvidia"
         ];
 
-        general = {
-          gaps_in = 5;
-          gaps_out = 10;
-          border_size = 2;
-        };
+        general =
+          {
+            gaps_in = hyprTheme.gapsIn or 5;
+            gaps_out = hyprTheme.gapsOut or 10;
+            border_size = hyprTheme.borderSize or 2;
+          }
+          // lib.optionalAttrs ((hyprTheme.activeBorder or null) != null) {
+            "col.active_border" = hyprTheme.activeBorder;
+          }
+          // lib.optionalAttrs ((hyprTheme.inactiveBorder or null) != null) {
+            "col.inactive_border" = hyprTheme.inactiveBorder;
+          };
 
         decoration = {
-          rounding = 6;
-          rounding_power = 3;
+          rounding = hyprTheme.rounding or 6;
+          rounding_power = hyprTheme.roundingPower or 3;
 
           active_opacity =
             if transparency
-            then 0.82
+            then (hyprTheme.activeOpacity or 0.82)
             else 1.0;
           inactive_opacity =
             if transparency
-            then 0.75
+            then (hyprTheme.inactiveOpacity or 0.75)
             else 1.0;
-          fullscreen_opacity = 1.0;
+          fullscreen_opacity = hyprTheme.fullscreenOpacity or 1.0;
 
           shadow = {
-            enabled = true;
-            range = 20;
-            render_power = 2;
-            offset = "0 5";
-            color = lib.mkDefault "rgba(00000055)";
+            enabled = hyprTheme.shadow.enabled or true;
+            range = hyprTheme.shadow.range or 20;
+            render_power = hyprTheme.shadow.renderPower or 2;
+            offset = hyprTheme.shadow.offset or "0 5";
+            color = hyprTheme.shadow.color or "rgba(00000055)";
           };
 
           blur = {
-            enabled = transparency;
-            size = 10;
-            passes = 3;
-            noise = 0.04;
-            contrast = 1.0;
-            brightness = 1.0;
-            vibrancy = 0.15;
-            vibrancy_darkness = 0.5;
-            new_optimizations = true;
-            popups = true;
+            enabled = transparency && (hyprTheme.blur.enabled or true);
+            size = hyprTheme.blur.size or 10;
+            passes = hyprTheme.blur.passes or 3;
+            noise = hyprTheme.blur.noise or 0.04;
+            contrast = hyprTheme.blur.contrast or 1.0;
+            brightness = hyprTheme.blur.brightness or 1.0;
+            vibrancy = hyprTheme.blur.vibrancy or 0.15;
+            vibrancy_darkness = hyprTheme.blur.vibrancyDarkness or 0.5;
+            new_optimizations = hyprTheme.blur.newOptimizations or true;
+            popups = hyprTheme.blur.popups or true;
           };
         };
 

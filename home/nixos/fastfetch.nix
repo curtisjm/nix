@@ -1,8 +1,5 @@
-{ config, pkgs, lib, osConfig, ... }:
+{ pkgs, ... }:
 
-let
-  theme = osConfig.theme;
-in
 {
   # Fastfetch - Fast system information tool
   programs.fastfetch = {

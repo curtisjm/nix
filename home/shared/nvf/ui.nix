@@ -1,4 +1,14 @@
-{ lib, ... }:
+{
+  lib,
+  osConfig,
+  ...
+}:
+let
+  neovimTheme = osConfig.custom.theme.current.apps.neovim or {
+    name = "tokyonight";
+    style = "moon";
+  };
+in
 {
   programs.nvf.settings.vim = {
     # Statusline (lualine)
@@ -26,7 +36,12 @@
       nvim-cursorline.enable = true;
       fidget-nvim.enable = true;
     };
-    theme.name = lib.mkForce "tokyonight";
-    theme.style = lib.mkForce "moon";
+    theme =
+      {
+        name = lib.mkForce neovimTheme.name;
+      }
+      // lib.optionalAttrs ((neovimTheme.style or null) != null) {
+        style = lib.mkForce neovimTheme.style;
+      };
   };
 }
