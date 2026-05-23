@@ -33,10 +33,10 @@ mkTheme {
     };
   };
 
-  hyprland = {
-    activeBorder = "rgb(83a598)";
-    inactiveBorder = "rgba(665c54aa)";
-  };
+  # hyprland = {
+  #   activeBorder = "rgb(83a598)";
+  #   inactiveBorder = "rgba(665c54aa)";
+  # };
 
   apps.neovim = {
     name = "gruvbox";
