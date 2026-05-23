@@ -95,6 +95,20 @@ Agent configuration is intentionally not managed by Home Manager. Runtime config
 
 The Darwin host still uses Homebrew for agent packages.
 
+## Neovim
+
+Neovim is managed through the standard Home Manager `programs.neovim` module in:
+
+- `home/shared/neovim.nix`
+
+The module installs Neovim and external CLI dependencies for the `curtisjm/nvim` `lazyvim` branch, including language servers, formatters, debug tooling, LazyVim runtime tools, and Wayland clipboard helpers.
+
+Lua configuration is intentionally not stored in this repository. Clone the Neovim config manually to the normal Neovim config directory:
+
+```bash
+git clone --branch lazyvim https://github.com/curtisjm/nvim.git ~/.config/nvim
+```
+
 ## Tailscale Configuration
 
 - Linux hosts use `modules/nixos/tailscale.nix`.

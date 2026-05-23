@@ -14,7 +14,7 @@
     ../shared/fzf.nix
     ../shared/git.nix
     ../shared/tmux.nix
-    ../shared/nvf
+    ../shared/neovim.nix
     ../nixos/i3.nix
     ../nixos/kitty.nix
     ../nixos/rofi.nix

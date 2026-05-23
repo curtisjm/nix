@@ -2,7 +2,6 @@
   hostConfig,
   inputs,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -35,8 +34,4 @@
     useUserPackages = true;
     backupFileExtension = "backup";
   };
-
-  environment.systemPackages = with pkgs; [
-    neovim
-  ];
 }

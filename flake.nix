@@ -31,10 +31,6 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvf = {
-      url = "github:notashelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,7 +50,6 @@
     nixos-hardware,
     noctalia,
     zen-browser,
-    nvf,
     agenix,
     gastown,
     llm-agents,

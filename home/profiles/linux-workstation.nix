@@ -9,7 +9,7 @@
     ../shared/eza.nix
     ../shared/fzf.nix
     ../shared/git.nix
-    ../shared/nvf
+    ../shared/neovim.nix
     ../shared/tmux.nix
     # ../shared/gastown.nix
     ../nixos/hyprland.nix

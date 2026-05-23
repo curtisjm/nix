@@ -13,8 +13,6 @@ in
       stylix.enable = true;
       stylix.polarity = "dark";
 
-      stylix.targets.nvf.enable = false;
-
       stylix.image = theme.stylix.image;
       stylix.base16Scheme = theme.stylix.base16Scheme;
       stylix.fonts = theme.stylix.fonts;
