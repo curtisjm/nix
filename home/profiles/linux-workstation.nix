@@ -18,6 +18,7 @@
     ../nixos/zathura.nix
     ../nixos/obsidian.nix
     ../nixos/vesktop.nix
+    ../nixos/zen.nix
     ../nixos/qutebrowser.nix
     ../nixos/direnv.nix
   ];
