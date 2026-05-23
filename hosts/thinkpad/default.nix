@@ -7,7 +7,6 @@
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-13th-gen
     ../../modules/nixos/profiles/workstation.nix
-    ../../modules/nixos/networking.nix
   ];
 
   custom.keyd.enableThinkpadMeta = true;
