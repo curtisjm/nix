@@ -10,7 +10,6 @@
     ../base.nix
     inputs.home-manager.nixosModules.home-manager
     inputs.stylix.nixosModules.stylix
-    inputs.agenix.nixosModules.default
     ../theme.nix
     ../stylix.nix
     ../noctalia.nix
@@ -22,6 +21,7 @@
     ../regreet.nix
     ../virtualization.nix
     ../tailscale.nix
+    ../llm-agents.nix
     ../../shared/emacs.nix
   ];
 

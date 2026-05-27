@@ -9,11 +9,8 @@
     ../shared/eza.nix
     ../shared/fzf.nix
     ../shared/git.nix
-    ../shared/nvf
+    ../shared/neovim.nix
     ../shared/tmux.nix
-    ../shared/opencode.nix
-    ../shared/codex.nix
-    ../shared/claude-code.nix
     # ../shared/gastown.nix
     ../nixos/hyprland.nix
     ../nixos/kitty.nix

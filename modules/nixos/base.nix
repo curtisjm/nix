@@ -56,8 +56,6 @@ in
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     self.overlays.default
-    inputs.claude-code-nix.overlays.default
-    inputs.codex-cli-nix.overlays.default
   ];
 
   environment.systemPackages = with pkgs; [

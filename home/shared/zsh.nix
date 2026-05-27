@@ -1,4 +1,8 @@
-{...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -13,17 +17,21 @@
       clear = "command clear && fastfetch";
     };
 
-    initContent = ''
-      bindkey -v
-      eval "$(/opt/homebrew/bin/brew shellenv)"
-      export PATH="/Library/TeX/texbin:$PATH"
-      export PATH="$HOME/.emacs.d/bin:$PATH"
-      export GASTOWN_DISABLE_OFFER_ADD=1
-      cd() {
-        z "$@"
-        eza -l
-      }
-      fastfetch
-    '';
+    initContent =
+      lib.optionalString pkgs.stdenv.isDarwin ''
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+        export PATH="/Library/TeX/texbin:$PATH"
+      ''
+      +
+      ''
+        bindkey -v
+        export PATH="$HOME/.emacs.d/bin:$PATH"
+        export GASTOWN_DISABLE_OFFER_ADD=1
+        cd() {
+          z "$@"
+          eza -l
+        }
+        fastfetch
+      '';
   };
 }

@@ -1,9 +1,13 @@
 {
   config,
-  lib,
+  inputs,
   ...
 }:
 {
+  imports = [
+    inputs.agenix.nixosModules.default
+  ];
+
   age.identityPaths = [ "/home/curtis/.ssh/id_ed25519" ];
 
   age.secrets = {

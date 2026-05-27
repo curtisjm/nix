@@ -31,30 +31,11 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvf = {
-      url = "github:notashelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    claude-code-nix = {
-      url = "github:sadjow/claude-code-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    codex-cli-nix = {
-      url = "github:sadjow/codex-cli-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    superpowers = {
-      url = "github:obra/superpowers";
-      flake = false;
-    };
-    openai-skills = {
-      url = "github:openai/skills";
-      flake = false;
-    };
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs = inputs @ {
@@ -69,13 +50,9 @@
     nixos-hardware,
     noctalia,
     zen-browser,
-    nvf,
     agenix,
-    superpowers,
-    openai-skills,
     gastown,
-    claude-code-nix,
-    codex-cli-nix,
+    llm-agents,
   }: let
     lib = nixpkgs.lib;
     hostInventory = import ./lib/hosts.nix;

@@ -1,7 +1,7 @@
-{ config, pkgs, lib, osConfig, ... }:
+{ pkgs, osConfig, ... }:
 
 let
-  theme = osConfig.theme;
+  theme = osConfig.custom.theme.current;
   # Convert hex to RGB
   hexToRgb = hex: let
     r = builtins.substring 1 2 hex;
