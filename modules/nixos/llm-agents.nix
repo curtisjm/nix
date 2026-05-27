@@ -10,6 +10,8 @@
       agents.claude-code
       agents.codex
       agents.opencode
+      agents.pi
+      agents.coderabbit-cli
     ];
 
   nix.settings = {

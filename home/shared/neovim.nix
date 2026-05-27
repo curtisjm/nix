@@ -23,6 +23,10 @@ in
     withNodeJs = true;
     withPython3 = true;
 
+    extraLuaConfig = ''
+      require("config.lazy")
+    '';
+
     extraPackages = with pkgs;
       [
         # LazyVim core requirements.
