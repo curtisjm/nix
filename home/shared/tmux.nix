@@ -39,6 +39,9 @@
       bind -T copy-mode-vi y send-keys -X copy-selection
       unbind -T copy-mode-vi MouseDragEnd1Pane
 
+      set -g extended-keys on
+      set -g extended-keys-format csi-u
+
       # Gastown
       set-hook -g after-new-session 'bind-key -T prefix g run-shell "gt agents menu"'
       bind-key g run-shell "gt agents menu"

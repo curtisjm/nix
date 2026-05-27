@@ -9,6 +9,7 @@
             "sentry-cli"
             "playwright-cli"
             "opencode"
+            "pi-coding-agent"
         ];
         casks = [
             "arc"
@@ -37,6 +38,7 @@
             "warp"
             "codex"
             "zed"
+            "coderabbit"
         ];
         taps = [
             "FelixKratz/formulae"
