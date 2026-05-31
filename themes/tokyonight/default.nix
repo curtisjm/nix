@@ -14,18 +14,21 @@ mkTheme {
   };
 
   hyprland = {
-    gapsIn = 3;
-    gapsOut = 6;
-    borderSize = 1;
+    gapsIn = 4;
+    gapsOut = 8;
+    borderSize = 2;
     rounding = 0;
-    activeOpacity = 0.9;
-    inactiveOpacity = 0.82;
+    activeOpacity = 0.88;
+    inactiveOpacity = 0.8;
 
     blur = {
-      size = 6;
-      passes = 2;
-      noise = 0.02;
-      vibrancy = 0.08;
+      size = 12;
+      passes = 3;
+      noise = 0.04;
+      contrast = 0.9;
+      brightness = 0.85;
+      vibrancy = 0.12;
+      vibrancyDarkness = 0.35;
     };
   };
 
