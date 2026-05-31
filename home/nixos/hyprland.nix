@@ -68,12 +68,6 @@ in
         gaps_in = hyprTheme.gapsIn or 5;
         gaps_out = hyprTheme.gapsOut or 10;
         border_size = hyprTheme.borderSize or 2;
-      }
-      // lib.optionalAttrs ((hyprTheme.activeBorder or null) != null) {
-        "col.active_border" = hyprTheme.activeBorder;
-      }
-      // lib.optionalAttrs ((hyprTheme.inactiveBorder or null) != null) {
-        "col.inactive_border" = hyprTheme.inactiveBorder;
       };
 
       decoration = {
