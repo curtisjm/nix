@@ -14,8 +14,19 @@ mkTheme {
   };
 
   hyprland = {
+    gapsIn = 3;
+    gapsOut = 6;
     borderSize = 1;
     rounding = 0;
+    activeOpacity = 0.9;
+    inactiveOpacity = 0.82;
+
+    blur = {
+      size = 6;
+      passes = 2;
+      noise = 0.02;
+      vibrancy = 0.08;
+    };
   };
 
   noctalia.radius = {
