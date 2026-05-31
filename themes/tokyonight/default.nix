@@ -4,7 +4,7 @@ mkTheme {
   displayName = "Tokyo Night Moon";
 
   stylix = {
-    image = ./wallpapers/tokyonight-2.png;
+    image = ./wallpapers/tokyonight-0.png;
     base16Scheme = ./base16.yaml;
     cursor = {
       name = "Adwaita";
