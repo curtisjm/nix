@@ -13,6 +13,11 @@ mkTheme {
     };
   };
 
+  noctalia.radius = {
+    container = 1.0;
+    input = 1.0;
+  };
+
   apps.neovim = {
     name = "tokyonight";
     style = "moon";

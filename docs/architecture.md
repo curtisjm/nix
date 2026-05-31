@@ -43,7 +43,7 @@ This keeps host entrypoints focused on hardware imports, guest-specific boot set
 
 - `themes/default.nix` exports the available theme catalog consumed by `modules/nixos/theme.nix`.
 - Each active theme lives in `themes/<name>/` with:
-  - `default.nix`: theme metadata and per-app/per-compositor knobs.
+  - `default.nix`: theme metadata and per-app/per-compositor knobs, including optional `noctalia` visual overrides.
   - `base16.yaml`: the Stylix/Base16 scheme for that theme.
   - `wallpapers/`: wallpapers that belong to that theme.
 - `themes/unsorted/wallpapers/` holds wallpapers that have not been assigned to a managed theme yet.

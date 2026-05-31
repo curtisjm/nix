@@ -68,6 +68,12 @@ let
           padding = 14;
         };
 
+        noctalia = {
+          radius.default = 0.3;
+          animations = { };
+          settings = { };
+        };
+
         apps = {
           neovim = {
             name = "tokyonight";
