@@ -4,8 +4,8 @@ mkTheme {
   displayName = "Catppuccin Mocha";
 
   stylix = {
-    image = ../../../wallpapers/dark-nix.png;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+    image = ./wallpapers/dark-nix.png;
+    base16Scheme = ./base16.yaml;
     cursor = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;

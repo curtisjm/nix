@@ -4,8 +4,8 @@ mkTheme {
   displayName = "Rose Pine";
 
   stylix = {
-    image = ../../../wallpapers/rose-pine-2.jpg;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+    image = ./wallpapers/rose-pine-2.jpg;
+    base16Scheme = ./base16.yaml;
     cursor = {
       name = "BreezeX-RosePine-Linux";
       package = pkgs.rose-pine-cursor;

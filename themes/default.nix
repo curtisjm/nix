@@ -92,11 +92,11 @@ let
     };
 in
 {
-  nord = import ./nord.nix { inherit pkgs mkTheme; };
-  gruvbox = import ./gruvbox-dark.nix { inherit pkgs mkTheme; };
-  tokyonight = import ./tokyonight.nix { inherit pkgs mkTheme; };
-  rose-pine = import ./rose-pine.nix { inherit pkgs mkTheme; };
-  ayu = import ./ayu.nix { inherit pkgs mkTheme; };
-  kanagawa = import ./kanagawa.nix { inherit pkgs mkTheme; };
-  catppuccin-mocha = import ./catppuccin-mocha.nix { inherit pkgs mkTheme; };
+  nord = import ./nord { inherit pkgs mkTheme; };
+  gruvbox = import ./gruvbox { inherit pkgs mkTheme; };
+  tokyonight = import ./tokyonight { inherit pkgs mkTheme; };
+  rose-pine = import ./rose-pine { inherit pkgs mkTheme; };
+  ayu = import ./ayu { inherit pkgs mkTheme; };
+  kanagawa = import ./kanagawa { inherit pkgs mkTheme; };
+  catppuccin-mocha = import ./catppuccin-mocha { inherit pkgs mkTheme; };
 }

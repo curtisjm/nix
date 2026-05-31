@@ -4,8 +4,8 @@ mkTheme {
   displayName = "Nord";
 
   stylix = {
-    image = ../../../wallpapers/nord-2.png;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
+    image = ./wallpapers/nord-2.png;
+    base16Scheme = ./base16.yaml;
     cursor = {
       name = "Nordzy";
       package = pkgs.nordzy-cursor-theme;

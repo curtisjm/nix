@@ -4,8 +4,8 @@ mkTheme {
   displayName = "Gruvbox Dark";
 
   stylix = {
-    image = ../../../wallpapers/gruv-cloud-valley.png;
-    base16Scheme = ../../../themes/gruvbox-dark-custom.yaml;
+    image = ./wallpapers/gruv-cloud-valley.png;
+    base16Scheme = ./base16.yaml;
     cursor = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;

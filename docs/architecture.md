@@ -11,6 +11,7 @@ This repository is a flake-based system and home environment configuration for L
 - `hosts/`: Thin machine entrypoints that mostly handle hardware imports and machine-only overrides.
 - `modules/`: Reusable NixOS and Darwin modules, including shared system base/profile layers.
 - `home/`: Home Manager profiles split into shared and platform-specific pieces.
+- `themes/`: Theme catalog. Each active theme owns its Nix definition, Base16 YAML, and theme-specific wallpapers.
 - `overlays/`: Package overlays.
 - `secrets/`: Secret references and encrypted secret metadata.
 - `reference/`: Optional profile/package references and archived host definitions.
@@ -37,6 +38,15 @@ This keeps host-level concerns (kernel, services, hardware) separate from user-l
 - `modules/darwin/profiles/default.nix`: Shared Darwin module composition.
 
 This keeps host entrypoints focused on hardware imports, guest-specific boot settings, and machine-only tweaks.
+
+## Theme Catalog
+
+- `themes/default.nix` exports the available theme catalog consumed by `modules/nixos/theme.nix`.
+- Each active theme lives in `themes/<name>/` with:
+  - `default.nix`: theme metadata and per-app/per-compositor knobs.
+  - `base16.yaml`: the Stylix/Base16 scheme for that theme.
+  - `wallpapers/`: wallpapers that belong to that theme.
+- `themes/unsorted/wallpapers/` holds wallpapers that have not been assigned to a managed theme yet.
 
 ## Package Categories
 

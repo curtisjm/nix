@@ -1,11 +1,11 @@
 { pkgs, mkTheme }:
 mkTheme {
-  name = "kanagawa";
-  displayName = "Kanagawa";
+  name = "tokyonight";
+  displayName = "Tokyo Night Moon";
 
   stylix = {
-    image = ../../../wallpapers/kanagawa-1.png;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
+    image = ./wallpapers/tokyonight-2.png;
+    base16Scheme = ./base16.yaml;
     cursor = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;

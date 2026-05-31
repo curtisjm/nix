@@ -3,10 +3,12 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   # mod = "Mod1"; # Alt key
   mod = "Mod4"; # Super key
-in {
+in
+{
   # home.sessionVariables = {
   #   GDK_SCALE = "2";
   #   GDK_DPI_SCALE = "0.5";
@@ -111,9 +113,9 @@ in {
         border = 2;
         titlebar = false;
         criteria = [
-          {class = "Pavucontrol";}
-          {class = "Nm-connection-editor";}
-          {class = "feh";}
+          { class = "Pavucontrol"; }
+          { class = "Nm-connection-editor"; }
+          { class = "feh"; }
         ];
       };
 
@@ -124,7 +126,7 @@ in {
 
       focus.followMouse = true;
 
-      bars = [];
+      bars = [ ];
       # Use i3bar with i3status (or configure polybar separately)
       # bars = [{
       #   position = "bottom";
@@ -138,7 +140,7 @@ in {
           notification = false;
         }
         {
-          command = "GDK_SCALE=1 feh --bg-fill ../../wallpapers/gruvbox-1.jpg";
+          command = "GDK_SCALE=1 feh --bg-fill ${../../themes/gruvbox/wallpapers/gruvbox-1.jpg}";
           notification = false;
         }
         {
