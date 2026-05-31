@@ -13,6 +13,11 @@ mkTheme {
     };
   };
 
+  hyprland = {
+    borderSize = 1;
+    rounding = 0;
+  };
+
   noctalia.radius = {
     container = 1.0;
     input = 1.0;
