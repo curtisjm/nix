@@ -24,6 +24,8 @@ let
   radiusFor = name: lib.mkForce (get radius name defaultRadius);
 
   animations = noctaliaTheme.animations or { };
+
+  noctalia-shell = import ../../lib/noctalia-shell-package.nix { inherit inputs pkgs; };
 in
 {
   imports = [
@@ -32,6 +34,7 @@ in
 
   programs.noctalia-shell = {
     enable = true;
+    package = noctalia-shell;
     settings = lib.recursiveUpdate {
       # settingsVersion = 0;
       bar = {
@@ -209,6 +212,7 @@ in
         # 	wallhavenResolutionHeight = "";
       };
       appLauncher = {
+        animationDisabled = true;
         enableClipboardHistory = true;
         # 	autoPasteClipboard = false;
         # 	enableClipPreview = true;
