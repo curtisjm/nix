@@ -10,6 +10,7 @@
             "playwright-cli"
             "opencode"
             "pi-coding-agent"
+            # "herdr"
         ];
         casks = [
             "arc"
@@ -39,6 +40,7 @@
             "codex"
             "zed"
             "coderabbit"
+            "chatgpt-atlas"
         ];
         taps = [
             "FelixKratz/formulae"

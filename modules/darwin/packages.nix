@@ -44,5 +44,6 @@
         xcodegen
         dolt
         php
+        delta
     ];
 }
