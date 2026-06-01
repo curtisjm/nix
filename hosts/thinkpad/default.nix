@@ -12,7 +12,7 @@
   custom.keyd.enableThinkpadMeta = true;
 
   custom.theme = {
-    colorScheme = "gruvbox";
+    colorScheme = "tokyonight";
     # transparency = lib.mkForce false;
   };
 

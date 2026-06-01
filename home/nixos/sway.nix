@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # Sway configuration managed by home-manager
@@ -24,32 +29,31 @@
       right = "l";
 
       # Keybindings
-      keybindings = let
-        mod = config.wayland.windowManager.sway.config.modifier;
-      in lib.mkOptionDefault {
-        # Applications
-        "${mod}+Return" = "exec ${config.wayland.windowManager.sway.config.terminal}";
-        "${mod}+space" = "exec ${config.wayland.windowManager.sway.config.menu}";
-        "${mod}+Shift+q" = "kill";
+      keybindings =
+        let
+          mod = config.wayland.windowManager.sway.config.modifier;
+        in
+        lib.mkOptionDefault {
+          # Applications
+          "${mod}+Return" = "exec ${config.wayland.windowManager.sway.config.terminal}";
+          "${mod}+space" = "exec ${config.wayland.windowManager.sway.config.menu}";
+          "${mod}+Shift+q" = "kill";
 
-        # Extra workspace bindings
-        # "${mod}+t" = "workspace number 11";
-        # "${mod}+b" = "workspace number 12";
-        # "${mod}+o" = "workspace number 13";
-        # "${mod}+Shift+t" = "move container to workspace number 11";
-        # "${mod}+Shift+b" = "move container to workspace number 12";
-        # "${mod}+Shift+o" = "move container to workspace number 13";
+          # Extra workspace bindings
+          # "${mod}+t" = "workspace number 11";
+          # "${mod}+b" = "workspace number 12";
+          # "${mod}+o" = "workspace number 13";
+          # "${mod}+Shift+t" = "move container to workspace number 11";
+          # "${mod}+Shift+b" = "move container to workspace number 12";
+          # "${mod}+Shift+o" = "move container to workspace number 13";
 
-        # Screenshots
-        "Print" = "exec grim -g \"$(slurp)\" - | wl-copy";
-        "Shift+Print" = "exec grim ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png";
+          # Screenshots
+          "Print" = "exec grim -g \"$(slurp)\" - | wl-copy";
+          "Shift+Print" = "exec grim ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png";
 
-        # Clipboard
-        "${mod}+v" = "exec cliphist list | rofi -dmenu | cliphist decode | wl-copy";
-
-        # Power menu
-        "${mod}+Shift+e" = "exec wlogout";
-      };
+          # Clipboard
+          "${mod}+v" = "exec cliphist list | rofi -dmenu | cliphist decode | wl-copy";
+        };
 
       # Startup applications
       startup = [
@@ -106,7 +110,6 @@
     extraConfig = ''
       for_window [app_id="pavucontrol"] floating enable
       for_window [app_id="nm-connection-editor"] floating enable
-      for_window [app_id="wlogout"] floating enable
       focus_wrapping no
       seat * xcursor_theme Adwaita 32
     '';

@@ -13,6 +13,8 @@ let
   };
 in
 {
+  stylix.targets.neovim.enable = false;
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -20,6 +22,10 @@ in
     vimAlias = true;
     withNodeJs = true;
     withPython3 = true;
+
+    extraLuaConfig = ''
+      require("config.lazy")
+    '';
 
     extraPackages = with pkgs;
       [

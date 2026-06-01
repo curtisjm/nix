@@ -3,10 +3,12 @@
   lib,
   pkgs,
   ...
-}: let
-  themes = import ./themes { inherit lib pkgs; };
+}:
+let
+  themes = import ../../themes { inherit lib pkgs; };
   cfg = config.custom.theme;
-in {
+in
+{
   options.custom.theme = {
     enable = lib.mkEnableOption "custom theming";
 

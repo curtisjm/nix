@@ -5,22 +5,34 @@
   osConfig,
   hostConfig,
   ...
-}: let
+}:
+let
+  get =
+    attrs: name: default:
+    if builtins.hasAttr name attrs then attrs.${name} else default;
+
   transparency = osConfig.custom.theme.transparency or false;
-  opacity = lib.mkForce (
-    if transparency
-    then 0.75
-    else 1.0
-  );
-  radius = lib.mkForce 0.3;
-in {
+  theme = osConfig.custom.theme.current or { };
+  noctaliaTheme = theme.noctalia or { };
+
+  defaultOpacity = if transparency then 0.75 else 1.0;
+  opacity = get noctaliaTheme "opacity" defaultOpacity;
+  sectionOpacity = name: lib.mkForce (get (noctaliaTheme.opacityBySection or { }) name opacity);
+
+  radius = noctaliaTheme.radius or { };
+  defaultRadius = get radius "default" 0.3;
+  radiusFor = name: lib.mkForce (get radius name defaultRadius);
+
+  animations = noctaliaTheme.animations or { };
+in
+{
   imports = [
     inputs.noctalia.homeModules.default
   ];
 
   programs.noctalia-shell = {
     enable = true;
-    settings = {
+    settings = lib.recursiveUpdate {
       # settingsVersion = 0;
       bar = {
         position = "right";
@@ -29,7 +41,7 @@ in {
         # 	showOutline = false;
         # 	showCapsule = true;
         # 	capsuleOpacity = 1;
-        backgroundOpacity = opacity;
+        backgroundOpacity = sectionOpacity "bar";
         # 	useSeparateOpacity = false;
         floating = true;
         # 	marginVertical = 4;
@@ -63,32 +75,31 @@ in {
               id = "Workspace";
             }
           ];
-          right =
-            [
-              {
-                id = "Tray";
-              }
-            ]
-            ++ lib.optionals hostConfig.isLaptop [
-              {
-                id = "Battery";
-              }
-            ]
-            ++ [
-              {
-                id = "Volume";
-              }
-            ]
-            ++ lib.optionals hostConfig.isLaptop [
-              {
-                id = "Brightness";
-              }
-            ]
-            ++ [
-              {
-                id = "SystemMonitor";
-              }
-            ];
+          right = [
+            {
+              id = "Tray";
+            }
+          ]
+          ++ lib.optionals hostConfig.isLaptop [
+            {
+              id = "Battery";
+            }
+          ]
+          ++ [
+            {
+              id = "Volume";
+            }
+          ]
+          ++ lib.optionals hostConfig.isLaptop [
+            {
+              id = "Brightness";
+            }
+          ]
+          ++ [
+            {
+              id = "SystemMonitor";
+            }
+          ];
         };
       };
       general = {
@@ -96,13 +107,11 @@ in {
         # 	dimmerOpacity = 0.2;
         # 	showScreenCorners = false;
         # 	forceBlackScreenCorners = false;
-        scaleRatio = 0.85;
-        radiusRatio = radius;
-        iRadiusRatio = radius;
-        boxRadiusRatio = radius;
-        screenRadiusRatio = radius;
-        # animationSpeed = 2;
-        # animationDisabled = true;
+        scaleRatio = lib.mkForce (get noctaliaTheme "scaleRatio" 0.85);
+        radiusRatio = radiusFor "container";
+        iRadiusRatio = radiusFor "input";
+        boxRadiusRatio = radiusFor "box";
+        screenRadiusRatio = radiusFor "screen";
         # 	compactLockScreen = false;
         # 	lockOnSuspend = true;
         # 	showSessionButtonsOnLockScreen = true;
@@ -115,6 +124,12 @@ in {
         # 	allowPanelsOnScreenWithoutBar = true;
         # 	showChangelogOnStartup = true;
         # 	telemetryEnabled = false;
+      }
+      // lib.optionalAttrs (builtins.hasAttr "speed" animations) {
+        animationSpeed = lib.mkForce animations.speed;
+      }
+      // lib.optionalAttrs (builtins.hasAttr "disabled" animations) {
+        animationDisabled = lib.mkForce animations.disabled;
       };
       ui = {
         # 	fontDefault = "";
@@ -122,7 +137,7 @@ in {
         # 	fontDefaultScale = 1;
         # 	fontFixedScale = 1;
         # 	tooltipsEnabled = true;
-        panelBackgroundOpacity = opacity;
+        panelBackgroundOpacity = sectionOpacity "panel";
         # 	panelsAttachedToBar = true;
         # 	settingsPanelMode = "attached";
         # 	wifiDetailsViewMode = "grid";
@@ -297,7 +312,7 @@ in {
         # 	enabled = true;
         # position = "left";
         # 	displayMode = "auto_hide";
-        backgroundOpacity = opacity;
+        backgroundOpacity = sectionOpacity "dock";
         # 	floatingRatio = 1;
         # 	size = 1;
         # 	onlySameOutput = true;
@@ -357,7 +372,7 @@ in {
         # 	monitors = [ ];
         # 	location = "top_right";
         # 	overlayLayer = true;
-        backgroundOpacity = opacity;
+        backgroundOpacity = sectionOpacity "notifications";
         # 	respectExpireTimeout = false;
         # 	lowUrgencyDuration = 3;
         # 	normalUrgencyDuration = 8;
@@ -384,7 +399,7 @@ in {
         # 	location = "top_right";
         # 	autoHideMs = 2000;
         # 	overlayLayer = true;
-        backgroundOpacity = opacity;
+        backgroundOpacity = sectionOpacity "osd";
         # 	enabledTypes = [
         # 		0
         # 			1
@@ -442,6 +457,6 @@ in {
         # 	gridSnap = false;
         # 	monitorWidgets = [ ];
       };
-    };
+    } (noctaliaTheme.settings or { });
   };
 }

@@ -17,6 +17,8 @@ let
       openssl
       fastfetch
       keyd
+      jq
+      pnpm
     ];
 
     dev = with pkgs; [
