@@ -30,11 +30,17 @@ mkTheme {
       vibrancy = 0.12;
       vibrancyDarkness = 0.35;
     };
+
+    animations.enabled = false;
   };
 
-  noctalia.radius = {
-    container = 1.0;
-    input = 1.0;
+  noctalia = {
+    animations.disabled = true;
+
+    radius = {
+      container = 1.0;
+      input = 1.0;
+    };
   };
 
   apps.neovim = {
