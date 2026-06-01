@@ -1,10 +1,8 @@
 { pkgs, inputs, ... }:
-let
-  noctalia-shell = import ../../lib/noctalia-shell-package.nix { inherit inputs pkgs; };
-in
 {
   # install package
-  environment.systemPackages = [
-    noctalia-shell
+  environment.systemPackages = with pkgs; [
+    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+    # ... maybe other stuff
   ];
 }
