@@ -45,6 +45,7 @@
             "chatgpt"
             "conductor"
             "todoist-app"
+            "notion-calendar"
         ];
         taps = [
             "FelixKratz/formulae"
