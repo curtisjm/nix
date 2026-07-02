@@ -15,6 +15,7 @@
     extraSpecialArgs = { inherit inputs hostConfig; };
     users.${hostConfig.username} = import ../../home/profiles/darwin.nix;
     useGlobalPkgs = true;
+    backupFileExtension = "backup";
   };
 
   system = {
