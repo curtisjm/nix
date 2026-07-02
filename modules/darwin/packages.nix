@@ -39,7 +39,7 @@
         google-chrome
         # claude-code  # installed via Homebrew for latest version
         utm
-        telegram-desktop
+        # telegram-desktop
 
         xcodegen
         dolt
