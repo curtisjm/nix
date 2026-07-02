@@ -6,6 +6,7 @@
     ../packages.nix
     ../homebrew.nix
     ../fonts.nix
+    ../llm-agents.nix
     ../services.nix
     ../tailscale.nix
     ../stylix.nix
