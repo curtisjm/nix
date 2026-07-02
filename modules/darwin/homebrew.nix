@@ -6,11 +6,12 @@
             "node"
             # "sketchybar"
             "vercel-cli"
-            "sentry-cli"
+            # "sentry-cli"
             "playwright-cli"
             "opencode"
             "pi-coding-agent"
             # "herdr"
+            # "hermes-agent"
         ];
         casks = [
             "arc"
@@ -41,10 +42,13 @@
             "zed"
             "coderabbit"
             "chatgpt-atlas"
+            "chatgpt"
+            "conductor"
+            "todoist-app"
         ];
         taps = [
             "FelixKratz/formulae"
-            "getsentry/tools"
+            # "getsentry/tools"
         ];
         masApps = {
             # "Perplexity" = 6714467650;
