@@ -162,8 +162,8 @@ shift + alt - h : yabai -m window --warp west
 shift + alt - l : yabai -m window --warp east
 
 # change focus between external displays (left and right)
-alt - s: yabai -m display --focus west
-alt - g: yabai -m display --focus east
+ctrl + alt - h : yabai -m display --focus west
+ctrl + alt - l : yabai -m display --focus east
 
 # make floating window fill screen
 shift + alt - up     : yabai -m window --grid 1:1:0:0:1:1
@@ -172,7 +172,7 @@ shift + alt - up     : yabai -m window --grid 1:1:0:0:1:1
 shift + alt - r : yabai -m space --rotate 270
 
 # flip along y-axis
-shift + alt - y : yabai -m space --mirror y-axis
+ctrl + alt - y : yabai -m space --mirror y-axis
 
 # flip along x-axis
 shift + alt - x : yabai -m space --mirror x-axis
@@ -207,23 +207,23 @@ shift + alt - f : yabai -m window --space 14;
 shift + alt - e : yabai -m window --space 15;
 shift + alt - g : yabai -m window --space 16;
 
-alt - 1 : yabai -m query --spaces --space 1 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 1
-alt - 2 : yabai -m query --spaces --space 2 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 2
-alt - 3 : yabai -m query --spaces --space 3 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 3
-alt - 4 : yabai -m query --spaces --space 4 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 4
-alt - t : yabai -m query --spaces --space 5 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 5
-alt - b : yabai -m query --spaces --space 6 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 6
-alt - c : yabai -m query --spaces --space 7 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 7
-alt - i : yabai -m query --spaces --space 8 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 8
-alt - o : yabai -m query --spaces --space 9 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 9
-alt - n : yabai -m query --spaces --space 10 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 10
-alt - v : yabai -m query --spaces --space 11 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 11
+alt - 1 : yabai -m space --focus 1
+alt - 2 : yabai -m space --focus 2
+alt - 3 : yabai -m space --focus 3
+alt - 4 : yabai -m space --focus 4
+alt - t : yabai -m space --focus 5
+alt - b : yabai -m space --focus 6
+alt - c : yabai -m space --focus 7
+alt - i : yabai -m space --focus 8
+alt - o : yabai -m space --focus 9
+alt - n : yabai -m space --focus 10
+alt - v : yabai -m space --focus 11
 # alt - v : open -a "Parallels Desktop"
-alt - a : yabai -m query --spaces --space 12 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 12
-alt - d : yabai -m query --spaces --space 13 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 13
-alt - f : yabai -m query --spaces --space 14 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 14
-alt - e : yabai -m query --spaces --space 15 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 15
-alt - g : yabai -m query --spaces --space 16 | jq -r '.windows[0]' | xargs yabai -m window --focus ; yabai -m space --focus 16
+alt - a : yabai -m space --focus 12
+alt - d : yabai -m space --focus 13
+alt - f : yabai -m space --focus 14
+alt - e : yabai -m space --focus 15
+alt - g : yabai -m space --focus 16
 
 # alt - 1 : SPACES=($(yabai -m query --displays --display | jq '.spaces[]')) && [[ -n $SPACES[1] ]] && yabai -m space --focus $SPACES[1]
 # alt - 2 : SPACES=($(yabai -m query --displays --display | jq '.spaces[]')) && [[ -n $SPACES[2] ]] && yabai -m space --focus $SPACES[2]
@@ -262,9 +262,7 @@ alt - g : yabai -m query --spaces --space 16 | jq -r '.windows[0]' | xargs yabai
 # stop/start/restart yabai
 # ctrl + alt - q : yabai --stop-service
 # ctrl + alt - s : yabai --start-service
-# shift + alt - y : launchctl kickstart -k "gui/${UID}/org.nixos.yabai"
-# shift + alt - s : launchctl kickstart -k "gui/${UID}/org.nixos.skhd"
-shift + alt - y : yabai --restart-service
-shift + alt - s : skhd --restart-service
+shift + alt - y : launchctl kickstart -k "gui/${UID}/org.nixos.yabai"
+shift + alt - s : launchctl kickstart -k "gui/${UID}/org.nixos.skhd"
 
 alt - 0 : open -na "Claude"

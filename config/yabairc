@@ -1,9 +1,12 @@
 #!/usr/bin/env sh
 
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-sudo yabai --load-sa
+# nix-darwin loads the scripting addition at startup. Reload it if Dock restarts.
+yabai -m signal --add label=dock_did_restart event=dock_did_restart action="sudo yabai --load-sa"
 
 yabai -m config layout bsp
+
+# Keep frame changes immediate; animated resizing can look like layout flicker.
+yabai -m config window_animation_duration 0.0
 
 # New window spawns to the right if vertical split, or bottom if horizontal split
 yabai -m config window_placement second_child
@@ -42,12 +45,7 @@ yabai -m config active_window_opacity 1.0
 # yabai -m rule --add app="^(Messages|Finder|Notion|Activity Monitor|Raycast|Discord)$" opacity=0.85
 # yabai -m config normal_window_opacity 0.9
 
-# Auto-focus first window when switching spaces
-# yabai -m signal --add event=space_changed action="yabai -m window --focus first || yabai -m window --focus last"
-
-yabai -m signal --add event=window_destroyed action="yabai -m window --focus recent 2>/dev/null || yabai -m window --focus first 2>/dev/null"
-
-yabai -m rule --add app="^(Calculator|Software Update|Dictionary|VLC|System Preferences|System Settings|zoom.us|Photo Booth|Archive Utility|Python|App Store)$" manage=off
+yabai -m rule --add label=float_utility_apps app="^(Calculator|Software Update|Dictionary|VLC|System Preferences|System Settings|zoom.us|Photo Booth|Archive Utility|Python|App Store)$" manage=off
 
 # borders active_color=0xff8f9591 inactive_color=0xff31363c width=5.0 &
 # borders active_color=0xffd8d3b7 inactive_color=0xff4b5568 width=5.0 &

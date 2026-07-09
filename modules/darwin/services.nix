@@ -5,6 +5,7 @@
             enable = true;
             package = pkgs.yabai;
             enableScriptingAddition = true;
+            extraConfig = builtins.readFile ../../config/yabairc;
         };
 
         skhd = {

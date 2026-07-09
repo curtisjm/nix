@@ -20,7 +20,6 @@
   home.stateVersion = "25.05";
 
   home.file = {
-    ".config/yabai/yabairc".source = ../../config/yabairc;
     ".config/skhd/skhdrc".source = ../../config/skhdrc;
   };
 }
