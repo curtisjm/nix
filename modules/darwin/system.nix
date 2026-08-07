@@ -24,7 +24,7 @@
             InitialKeyRepeat = 12;
             ApplePressAndHoldEnabled = false;
             NSAutomaticWindowAnimationsEnabled = false;
-            _HIHideMenuBar = true;
+            # _HIHideMenuBar = true;
         };
 
         CustomUserPreferences = {

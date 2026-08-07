@@ -21,6 +21,7 @@
         eval "$(direnv hook zsh)"
         eval "$(/opt/homebrew/bin/brew shellenv)"
         export PATH="/Library/TeX/texbin:$PATH"
+        export PATH="/Users/curtis/.local/bin:$PATH"
       ''
       +
       ''
