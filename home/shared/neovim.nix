@@ -23,7 +23,7 @@ in
     withNodeJs = true;
     withPython3 = true;
 
-    extraLuaConfig = ''
+    initLua = ''
       require("config.lazy")
     '';
 
@@ -48,7 +48,7 @@ in
         nil
         nixd
         alejandra
-        nixfmt-rfc-style
+        nixfmt
         statix
         deadnix
 

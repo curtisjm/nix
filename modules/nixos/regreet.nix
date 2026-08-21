@@ -1,6 +1,6 @@
 { ... }:
 {
-    programs.regreet = {
+    services.displayManager.regreet = {
         enable = true;
     };
 }

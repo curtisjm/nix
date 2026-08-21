@@ -9,6 +9,32 @@ let
   transparency = osConfig.custom.theme.transparency or false;
   theme = osConfig.custom.theme.current or { };
   hyprTheme = theme.hyprland or { };
+  animationsEnabled = hyprTheme.animations.enabled or true;
+
+  monitorFromHyprlang =
+    monitor:
+    let
+      parts = lib.splitString ", " monitor;
+    in
+    {
+      output = lib.elemAt parts 0;
+      mode = lib.elemAt parts 1;
+      position = lib.elemAt parts 2;
+      scale = lib.elemAt parts 3;
+    };
+
+  mkBezier = name: p1: p2: {
+    _args = [
+      name
+      {
+        type = "bezier";
+        points = [
+          p1
+          p2
+        ];
+      }
+    ];
+  };
 in
 {
   imports = [
@@ -27,239 +53,275 @@ in
 
   wayland.windowManager.hyprland = {
     enable = true;
-    configType = "hyprlang";
+    configType = "lua";
+
     settings = {
-      "$mod" = "$SUPER";
-      "$terminal" = "kitty";
-      "$fileManager" = "thunar";
-      "$browser" = "zen";
-
-      exec-once = [
-        "noctalia-shell"
-        # "wl-paste --type text --watch cliphist store"
-        # "wl-paste --type image --watch cliphist store"
-      ];
-
-      input = {
-        follow_mouse = 1;
-        sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
-        scroll_factor = 0.8;
-
-        repeat_rate = 50;
-        repeat_delay = 300;
-      }
-      // lib.optionalAttrs hostConfig.isLaptop {
-        touchpad = {
-          natural_scroll = true;
-          # clickfinger_behavior = true;
-        };
+      on = {
+        _args = [
+          "hyprland.start"
+          (lib.generators.mkLuaInline ''
+            function()
+              hl.exec_cmd("noctalia")
+            end
+          '')
+        ];
       };
 
-      monitor = hostConfig.monitors;
+      monitor = map monitorFromHyprlang hostConfig.monitors;
 
       env = lib.optionals hostConfig.hasNvidia [
-        "LIBVA_DRIVER_NAME,nvidia"
-        "XDG_SESSION_TYPE,wayland"
-        "GBM_BACKEND,nvidia-drm"
-        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        {
+          _args = [
+            "LIBVA_DRIVER_NAME"
+            "nvidia"
+          ];
+        }
+        {
+          _args = [
+            "XDG_SESSION_TYPE"
+            "wayland"
+          ];
+        }
+        {
+          _args = [
+            "GBM_BACKEND"
+            "nvidia-drm"
+          ];
+        }
+        {
+          _args = [
+            "__GLX_VENDOR_LIBRARY_NAME"
+            "nvidia"
+          ];
+        }
       ];
 
-      general = {
-        gaps_in = hyprTheme.gapsIn or 5;
-        gaps_out = hyprTheme.gapsOut or 10;
-        border_size = hyprTheme.borderSize or 2;
-      };
+      config = {
+        input = {
+          follow_mouse = 1;
+          sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+          scroll_factor = 0.8;
 
-      decoration = {
-        rounding = hyprTheme.rounding or 6;
-        rounding_power = hyprTheme.roundingPower or 3;
-
-        active_opacity = if transparency then (hyprTheme.activeOpacity or 0.82) else 1.0;
-        inactive_opacity = if transparency then (hyprTheme.inactiveOpacity or 0.75) else 1.0;
-        fullscreen_opacity = hyprTheme.fullscreenOpacity or 1.0;
-
-        shadow = {
-          enabled = hyprTheme.shadow.enabled or true;
-          range = hyprTheme.shadow.range or 20;
-          render_power = hyprTheme.shadow.renderPower or 2;
-          offset = hyprTheme.shadow.offset or "0 5";
-          # color = hyprTheme.shadow.color or "rgba(00000055)";
+          repeat_rate = 50;
+          repeat_delay = 300;
+        }
+        // lib.optionalAttrs hostConfig.isLaptop {
+          touchpad = {
+            natural_scroll = true;
+            # clickfinger_behavior = true;
+          };
         };
 
-        blur = {
-          enabled = transparency && (hyprTheme.blur.enabled or true);
-          size = hyprTheme.blur.size or 10;
-          passes = hyprTheme.blur.passes or 3;
-          noise = hyprTheme.blur.noise or 0.04;
-          contrast = hyprTheme.blur.contrast or 1.0;
-          brightness = hyprTheme.blur.brightness or 1.0;
-          vibrancy = hyprTheme.blur.vibrancy or 0.15;
-          vibrancy_darkness = hyprTheme.blur.vibrancyDarkness or 0.5;
-          new_optimizations = hyprTheme.blur.newOptimizations or true;
-          popups = hyprTheme.blur.popups or true;
+        general = {
+          gaps_in = hyprTheme.gapsIn or 5;
+          gaps_out = hyprTheme.gapsOut or 10;
+          border_size = hyprTheme.borderSize or 2;
+        };
+
+        decoration = {
+          rounding = hyprTheme.rounding or 6;
+          rounding_power = hyprTheme.roundingPower or 3;
+
+          active_opacity = if transparency then (hyprTheme.activeOpacity or 0.82) else 1.0;
+          inactive_opacity = if transparency then (hyprTheme.inactiveOpacity or 0.75) else 1.0;
+          fullscreen_opacity = hyprTheme.fullscreenOpacity or 1.0;
+
+          shadow = {
+            enabled = hyprTheme.shadow.enabled or true;
+            range = hyprTheme.shadow.range or 20;
+            render_power = hyprTheme.shadow.renderPower or 2;
+            offset = hyprTheme.shadow.offset or "0 5";
+            # color = hyprTheme.shadow.color or "rgba(00000055)";
+          };
+
+          blur = {
+            enabled = transparency && (hyprTheme.blur.enabled or true);
+            size = hyprTheme.blur.size or 10;
+            passes = hyprTheme.blur.passes or 3;
+            noise = hyprTheme.blur.noise or 0.04;
+            contrast = hyprTheme.blur.contrast or 1.0;
+            brightness = hyprTheme.blur.brightness or 1.0;
+            vibrancy = hyprTheme.blur.vibrancy or 0.15;
+            vibrancy_darkness = hyprTheme.blur.vibrancyDarkness or 0.5;
+            new_optimizations = hyprTheme.blur.newOptimizations or true;
+            popups = hyprTheme.blur.popups or true;
+          };
+        };
+
+        animations = {
+          enabled = animationsEnabled;
+        };
+
+        dwindle = {
+          preserve_split = true;
+          force_split = 2; # always split to the right/bottom
         };
       };
+
+      curve = [
+        (mkBezier "overshot"
+          [
+            0.05
+            0.9
+          ]
+          [
+            0.1
+            1.1
+          ]
+        )
+        (mkBezier "smoothOut"
+          [
+            0.33
+            1
+          ]
+          [
+            0.68
+            1
+          ]
+        )
+        (mkBezier "snappy"
+          [
+            0.25
+            0.46
+          ]
+          [
+            0.45
+            0.94
+          ]
+        )
+      ];
+
+      animation = [
+        {
+          leaf = "global";
+          enabled = animationsEnabled;
+          speed = 6;
+          bezier = "default";
+        }
+        {
+          leaf = "border";
+          enabled = animationsEnabled;
+          speed = 5;
+          bezier = "smoothOut";
+        }
+        {
+          leaf = "windows";
+          enabled = animationsEnabled;
+          speed = 4;
+          bezier = "overshot";
+        }
+        {
+          leaf = "windowsIn";
+          enabled = animationsEnabled;
+          speed = 4;
+          bezier = "overshot";
+          style = "popin 85%";
+        }
+        {
+          leaf = "windowsOut";
+          enabled = animationsEnabled;
+          speed = 3;
+          bezier = "smoothOut";
+          style = "popin 95%";
+        }
+        {
+          leaf = "fadeIn";
+          enabled = animationsEnabled;
+          speed = 2;
+          bezier = "smoothOut";
+        }
+        {
+          leaf = "fadeOut";
+          enabled = animationsEnabled;
+          speed = 2;
+          bezier = "smoothOut";
+        }
+        {
+          leaf = "fade";
+          enabled = animationsEnabled;
+          speed = 3;
+          bezier = "snappy";
+        }
+        {
+          leaf = "layers";
+          enabled = animationsEnabled;
+          speed = 3;
+          bezier = "smoothOut";
+        }
+        {
+          leaf = "layersIn";
+          enabled = animationsEnabled;
+          speed = 3;
+          bezier = "overshot";
+          style = "fade";
+        }
+        {
+          leaf = "layersOut";
+          enabled = animationsEnabled;
+          speed = 2;
+          bezier = "smoothOut";
+          style = "fade";
+        }
+        {
+          leaf = "fadeLayersIn";
+          enabled = animationsEnabled;
+          speed = 2;
+          bezier = "smoothOut";
+        }
+        {
+          leaf = "fadeLayersOut";
+          enabled = animationsEnabled;
+          speed = 2;
+          bezier = "smoothOut";
+        }
+        {
+          leaf = "workspaces";
+          enabled = false;
+        }
+        {
+          leaf = "workspacesIn";
+          enabled = false;
+        }
+        {
+          leaf = "workspacesOut";
+          enabled = false;
+        }
+      ];
 
       # Layer rules for noctalia shell blur
-      layerrule = [
-        "blur on, match:namespace r:^noctalia.*$"
+      layer_rule = [
+        {
+          name = "noctalia";
+          match.namespace = "^noctalia.*$";
+          blur = true;
+        }
+        {
+          name = "noctalia-background";
+          match.namespace = "noctalia-background-.*$";
+          ignore_alpha = 0.5;
+          blur = true;
+          blur_popups = true;
+        }
       ];
 
       # Make certain windows fully opaque
-      windowrule = [
-        "opacity 1.0 override, match:class ^(firefox)$"
-        "opacity 1.0 override, match:class ^(zen)$"
-        "opacity 1.0 override, match:class ^(mpv)$"
-        "opacity 1.0 override, match:fullscreen 1"
-      ];
-
-      animations = {
-        enabled = hyprTheme.animations.enabled or true;
-
-        bezier = [
-          "overshot, 0.05, 0.9, 0.1, 1.1"
-          "smoothOut, 0.33, 1, 0.68, 1"
-          "snappy, 0.25, 0.46, 0.45, 0.94"
-        ];
-
-        animation = [
-          "global, 1, 6, default"
-          "border, 1, 5, smoothOut"
-          "windows, 1, 4, overshot"
-          "windowsIn, 1, 4, overshot, popin 85%"
-          "windowsOut, 1, 3, smoothOut, popin 95%"
-          "fadeIn, 1, 2, smoothOut"
-          "fadeOut, 1, 2, smoothOut"
-          "fade, 1, 3, snappy"
-          "layers, 1, 3, smoothOut"
-          "layersIn, 1, 3, overshot, fade"
-          "layersOut, 1, 2, smoothOut, fade"
-          "fadeLayersIn, 1, 2, smoothOut"
-          "fadeLayersOut, 1, 2, smoothOut"
-          "workspaces, 0"
-          "workspacesIn, 0"
-          "workspacesOut, 0"
-        ];
-      };
-
-      dwindle = {
-        preserve_split = true;
-        force_split = 2; # always split to the right/bottom
-      };
-
-      bind = [
-        "$mod, Return, exec, $terminal"
-        # "$mod, B, exec, $browser"
-        "$mod, Q, killactive,"
-
-        "$mod, 1, workspace, 1"
-        "$mod, 2, workspace, 2"
-        "$mod, 3, workspace, 3"
-        "$mod, 4, workspace, 4"
-        "$mod, 5, workspace, 5"
-        "$mod, 6, workspace, 6"
-        "$mod, 7, workspace, 7"
-        "$mod, 8, workspace, 8"
-        "$mod, 9, workspace, 9"
-        "$mod, 0, workspace, 10"
-        "$mod, T, workspace, 11"
-        "$mod, B, workspace, 12"
-        "$mod, A, workspace, 13"
-        "$mod, D, workspace, 14"
-        "$mod, C, workspace, 15"
-        "$mod, S, workspace, 15"
-        "$mod, O, workspace, 16"
-        "$mod, V, workspace, 17"
-        "$mod, E, workspace, 18"
-        "$mod, G, workspace, 19"
-
-        "$mod SHIFT, 1, movetoworkspace, 1"
-        "$mod SHIFT, 2, movetoworkspace, 2"
-        "$mod SHIFT, 3, movetoworkspace, 3"
-        "$mod SHIFT, 4, movetoworkspace, 4"
-        "$mod SHIFT, 5, movetoworkspace, 5"
-        "$mod SHIFT, 6, movetoworkspace, 6"
-        "$mod SHIFT, 7, movetoworkspace, 7"
-        "$mod SHIFT, 8, movetoworkspace, 8"
-        "$mod SHIFT, 9, movetoworkspace, 9"
-        "$mod SHIFT, 0, movetoworkspace, 10"
-        "$mod SHIFT, T, movetoworkspace, 11"
-        "$mod SHIFT, B, movetoworkspace, 12"
-        "$mod SHIFT, A, movetoworkspace, 13"
-        "$mod SHIFT, D, movetoworkspace, 14"
-        "$mod SHIFT, C, movetoworkspace, 15"
-        "$mod SHIFT, S, movetoworkspace, 15"
-        "$mod SHIFT, O, movetoworkspace, 16"
-        "$mod SHIFT, V, movetoworkspace, 17"
-        "$mod SHIFT, E, movetoworkspace, 18"
-        "$mod SHIFT, G, movetoworkspace, 19"
-
-        # Focus movement (vim keys + arrows)
-        "$mod, h, movefocus, l"
-        "$mod, j, movefocus, d"
-        "$mod, k, movefocus, u"
-        "$mod, l, movefocus, r"
-        "$mod, left, movefocus, l"
-        "$mod, right, movefocus, r"
-        "$mod, up, movefocus, u"
-        "$mod, down, movefocus, d"
-
-        # Move windows (vim keys)
-        "$mod SHIFT, h, movewindow, l"
-        "$mod SHIFT, j, movewindow, d"
-        "$mod SHIFT, k, movewindow, u"
-        "$mod SHIFT, l, movewindow, r"
-
-        # Window management
-        "$mod, F, fullscreen, 0"
-        "$mod SHIFT, F, togglefloating,"
-        # "$mod, E, togglesplit,"
-        # "$mod, P, pseudo,"
-
-        "$mod, SPACE, exec, noctalia-shell ipc call launcher toggle"
-        # "$mod, S, exec, noctalia-shell ipc call controlCenter toggle"
-        # "$mod, comma, exec, noctalia-shell ipc call settings toggle"
-        "$mod, X, exec, noctalia-shell ipc call launcher clipboard"
-        # "$mod, L, exec, noctalia-shell ipc call lockScreen lock"
-
-        # Screenshots with swappy
-        ", Print, exec, grim -g \"$(slurp)\" - | swappy -f - ; noctalia-shell ipc call toast send '{\"title\": \"Screenshot\", \"body\": \"Region captured\", \"icon\": \"camera\", \"duration\": 1000}'"
-        "SHIFT, Print, exec, grim - | swappy -f - ; noctalia-shell ipc call toast send '{\"title\": \"Screenshot\", \"body\": \"Screen captured\", \"icon\": \"camera\", \"duration\": 1000}'"
-
-        # Lock screen
-        "CTRL SHIFT $mod, L, exec, loginctl lock-session"
-
-        # App launchers ($mod + alt + key)
-        "$mod ALT, t, exec, $terminal"
-        "$mod ALT, b, exec, $browser"
-        "$mod ALT, o, exec, obsidian"
-        "$mod ALT, e, exec, $fileManager"
-        "$mod ALT, v, exec, virt-manager"
-        "$mod ALT, d, exec, vesktop"
-      ];
-
-      # Allow on lock screen
-      bindl = [
-        ", XF86AudioMute, exec, noctalia-shell ipc call volume muteOutput"
-      ]
-      ++ lib.optionals hostConfig.isLaptop [
-        ", switch:Lid Switch, exec, systemctl suspend"
-      ];
-
-      # Resize windows (repeatable)
-      binde = [
-        "$mod CTRL, h, resizeactive, -30 0"
-        "$mod CTRL, j, resizeactive, 0 30"
-        "$mod CTRL, k, resizeactive, 0 -30"
-        "$mod CTRL, l, resizeactive, 30 0"
-      ];
-
-      # Allow on lock screen and repeat
-      bindel = [
-        ", XF86AudioRaiseVolume, exec, noctalia-shell ipc call volume increase"
-        ", XF86AudioLowerVolume, exec, noctalia-shell ipc call volume decrease"
-        ", XF86MonBrightnessUp, exec, noctalia-shell ipc call brightness increase"
-        ", XF86MonBrightnessDown, exec, noctalia-shell ipc call brightness decrease"
+      window_rule = [
+        {
+          match.class = "^(firefox)$";
+          opacity = "1.0 override";
+        }
+        {
+          match.class = "^(zen)$";
+          opacity = "1.0 override";
+        }
+        {
+          match.class = "^(mpv)$";
+          opacity = "1.0 override";
+        }
+        {
+          match.fullscreen = true;
+          opacity = "1.0 override";
+        }
       ];
     }
     // lib.optionalAttrs hostConfig.isLaptop {
@@ -271,13 +333,97 @@ in
     };
 
     extraConfig = ''
-      layerrule {
-      	name = noctalia
-      	match:namespace = noctalia-background-.*$
-      	ignore_alpha = 0.5
-      	blur = true
-      	blur_popups = true
+      local mainMod = "SUPER"
+      local terminal = "kitty"
+      local fileManager = "thunar"
+      local browser = "zen"
+
+      local function run(cmd)
+        return hl.dsp.exec_cmd(cmd)
+      end
+
+      hl.bind(mainMod .. " + Return", run(terminal))
+      hl.bind(mainMod .. " + Q", hl.dsp.window.close())
+
+      local workspaces = {
+        ["1"] = 1,
+        ["2"] = 2,
+        ["3"] = 3,
+        ["4"] = 4,
+        ["5"] = 5,
+        ["6"] = 6,
+        ["7"] = 7,
+        ["8"] = 8,
+        ["9"] = 9,
+        ["0"] = 10,
+        T = 11,
+        B = 12,
+        A = 13,
+        D = 14,
+        C = 15,
+        S = 15,
+        O = 16,
+        V = 17,
+        E = 18,
+        G = 19,
       }
+
+      for key, workspace in pairs(workspaces) do
+        hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = workspace }))
+        hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = workspace }))
+      end
+
+      local directions = {
+        h = "left",
+        j = "down",
+        k = "up",
+        l = "right",
+        left = "left",
+        right = "right",
+        up = "up",
+        down = "down",
+      }
+
+      for key, direction in pairs(directions) do
+        hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ direction = direction }))
+      end
+
+      for key, direction in pairs({ h = "left", j = "down", k = "up", l = "right" }) do
+        hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ direction = direction }))
+      end
+
+      hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen(0))
+      hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
+
+      hl.bind(mainMod .. " + SPACE", run("noctalia ipc call launcher toggle"))
+      hl.bind(mainMod .. " + X", run("noctalia ipc call launcher clipboard"))
+
+      hl.bind("Print", run([=[grim -g "$(slurp)" - | swappy -f - ; noctalia ipc call toast send '{"title": "Screenshot", "body": "Region captured", "icon": "camera", "duration": 1000}']=]))
+      hl.bind("SHIFT + Print", run([=[grim - | swappy -f - ; noctalia ipc call toast send '{"title": "Screenshot", "body": "Screen captured", "icon": "camera", "duration": 1000}']=]))
+
+      hl.bind("CTRL + SHIFT + " .. mainMod .. " + L", run("loginctl lock-session"))
+
+      hl.bind(mainMod .. " + ALT + t", run(terminal))
+      hl.bind(mainMod .. " + ALT + b", run(browser))
+      hl.bind(mainMod .. " + ALT + o", run("obsidian"))
+      hl.bind(mainMod .. " + ALT + e", run(fileManager))
+      hl.bind(mainMod .. " + ALT + v", run("virt-manager"))
+      hl.bind(mainMod .. " + ALT + d", run("vesktop"))
+
+      hl.bind("XF86AudioMute", run("noctalia ipc call volume muteOutput"), { locked = true })
+
+      hl.bind(mainMod .. " + CTRL + h", hl.dsp.window.resize({ x = -30, y = 0, relative = true }), { repeating = true })
+      hl.bind(mainMod .. " + CTRL + j", hl.dsp.window.resize({ x = 0, y = 30, relative = true }), { repeating = true })
+      hl.bind(mainMod .. " + CTRL + k", hl.dsp.window.resize({ x = 0, y = -30, relative = true }), { repeating = true })
+      hl.bind(mainMod .. " + CTRL + l", hl.dsp.window.resize({ x = 30, y = 0, relative = true }), { repeating = true })
+
+      hl.bind("XF86AudioRaiseVolume", run("noctalia ipc call volume increase"), { locked = true, repeating = true })
+      hl.bind("XF86AudioLowerVolume", run("noctalia ipc call volume decrease"), { locked = true, repeating = true })
+      hl.bind("XF86MonBrightnessUp", run("noctalia ipc call brightness increase"), { locked = true, repeating = true })
+      hl.bind("XF86MonBrightnessDown", run("noctalia ipc call brightness decrease"), { locked = true, repeating = true })
+    ''
+    + lib.optionalString hostConfig.isLaptop ''
+      hl.bind("switch:Lid Switch", run("systemctl suspend"), { locked = true })
     '';
   };
 
