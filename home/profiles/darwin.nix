@@ -1,18 +1,9 @@
 { hostConfig, pkgs, ... }:
 {
   imports = [
-    ./base.nix
-    ../shared/zsh.nix
-    ../shared/starship.nix
-    ../shared/zoxide.nix
-    ../shared/atuin.nix
-    ../shared/bat.nix
-    ../shared/eza.nix
-    ../shared/fzf.nix
-    ../shared/git.nix
+    ./terminal.nix
     ../shared/ghostty.nix
     ../shared/herdr.nix
-    ../shared/tmux.nix
     ../nixos/direnv.nix
   ];
 

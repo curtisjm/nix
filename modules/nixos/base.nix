@@ -11,7 +11,6 @@ let
 in
 {
   networking.hostName = hostConfig.hostname;
-  networking.networkmanager.enable = true;
 
   time.timeZone = hostConfig.timezone;
 
@@ -36,22 +35,10 @@ in
     description = hostConfig.username;
     home = hostConfig.homeDirectory;
     extraGroups = [
-      "networkmanager"
       "wheel"
     ];
     packages = [ ];
   };
-
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
-  programs.firefox.enable = true;
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
@@ -63,5 +50,5 @@ in
     tmux
   ];
 
-  nix.settings.experimental-features = lib.mkDefault "nix-command flakes";
+  nix.settings.experimental-features = lib.mkDefault [ "nix-command" "flakes" ];
 }

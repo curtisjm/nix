@@ -30,10 +30,13 @@ This keeps host-level concerns (kernel, services, hardware) separate from user-l
 
 ## System Profile Structure
 
-- `modules/nixos/base.nix`: Common Linux system defaults driven by `hostConfig` metadata.
+- `modules/nixos/base.nix`: Headless-safe Linux system defaults driven by `hostConfig` metadata.
+- `modules/nixos/desktop.nix`: NetworkManager, desktop user group, audio and Firefox; imported by the existing graphical profiles.
 - `modules/nixos/packages.nix`: Package category catalog for NixOS hosts.
 - `modules/nixos/profiles/workstation.nix`: Shared desktop/laptop composition for active Linux workstations.
 - `modules/nixos/profiles/vm.nix`: Shared VM composition for active Linux guest systems.
+- `modules/nixos/profiles/headless-dev.nix`: Personal remote development composition with key-only SSH over Tailscale, agent packages and Home Manager; no desktop or container daemon.
+- `hosts/curtis/`: Proxmox guest boot/storage contract and the Mac's public SSH key. See its README before installation.
 - `modules/darwin/base.nix`: Common Darwin metadata wiring for the primary user, Home Manager, nix settings, and host platform.
 - `modules/darwin/profiles/default.nix`: Shared Darwin module composition.
 
@@ -68,6 +71,8 @@ This keeps the category catalog in one place while letting each role opt into on
 
 - `home/shared/`: Common user tools and app modules used by multiple profiles.
 - `home/profiles/base.nix`: Shared Home Manager defaults used across role profiles.
+- `home/profiles/terminal.nix`: Explicit shared shell, Git and tmux imports used by Darwin and Linux profiles.
+- `home/profiles/linux-headless.nix`: Terminal tools, direnv and basic Neovim without the desktop LazyVim configuration dependency.
 - `home/profiles/linux-workstation.nix`: Shared Home Manager composition for desktop and thinkpad.
 - `home/profiles/vm.nix`: Shared Home Manager composition for VM hosts.
 - `home/profiles/darwin.nix`: Shared Home Manager composition for macOS.
@@ -89,11 +94,13 @@ Modules that need an overlayed package apply `self.overlays.default` explicitly 
 
 ## Coding Agents
 
-Coding agent binaries are installed system-wide on Linux workstations from `numtide/llm-agents.nix`:
+Coding agent binaries are installed system-wide on Linux workstations and the headless development profile from `numtide/llm-agents.nix`:
 
 - `claude-code`
 - `codex`
 - `opencode`
+- `pi`
+- `coderabbit-cli`
 
 The integration lives in:
 
@@ -103,7 +110,7 @@ That module also configures the Numtide binary cache for agent packages.
 
 Agent configuration is intentionally not managed by Home Manager. Runtime config for Claude Code, Codex, and OpenCode is user-managed under the tools' normal config locations.
 
-The Darwin host still uses Homebrew for agent packages.
+The Darwin host uses Homebrew for several agent tools and the Darwin `llm-agents.nix` module for OMP. This change does not unify their installers.
 
 ## Neovim
 
@@ -128,6 +135,8 @@ This split keeps platform-specific options isolated while preserving common beha
 
 - NixOS applies `--shields-up` with `services.tailscale.extraSetFlags`.
 - Darwin enables `services.tailscale` and applies `tailscale set --shields-up` during activation.
+
+The headless development profile deliberately does not import that client-only Linux module. It accepts inbound tailnet connections, exposes SSH only on `tailscale0`, and requires first-time enrollment from the VM console. Tailnet access policy still applies.
 
 ## Why This Shape
 
