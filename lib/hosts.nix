@@ -43,6 +43,18 @@ let
 in
 {
   hosts = {
+    curtis = {
+      platform = "nixos";
+      path = ../hosts/curtis;
+      system = "x86_64-linux";
+      hostConfig = commonConfig // {
+        username = "curtis";
+        homeDirectory = "/home/curtis";
+        hostname = "curtis";
+        stateVersion = "26.11";
+      };
+    };
+
     parallels-vm = {
       platform = "nixos";
       path = ../hosts/parallels-vm;

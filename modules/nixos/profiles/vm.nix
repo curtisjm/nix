@@ -7,6 +7,7 @@
 {
   imports = [
     ../base.nix
+    ../desktop.nix
     inputs.home-manager.nixosModules.home-manager
     inputs.stylix.nixosModules.stylix
     ../theme.nix
