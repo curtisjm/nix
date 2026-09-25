@@ -1,0 +1,2 @@
+WRN 2026-08-13T11:41:40.337 ?.99519    server_start:197: Failed to start server: operation not permitted: /var/folders/2l/l39y6c4s7rqfwq2q8c583fkw0000gn/T/nvim.curtis/bJmhFI/nvim.99519.0
+WRN 2026-08-13T11:43:33.651 ?.4404     server_start:197: Failed to start server: operation not permitted: /var/folders/2l/l39y6c4s7rqfwq2q8c583fkw0000gn/T/nvim.curtis/PTgnna/nvim.4404.0

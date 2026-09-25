@@ -7,7 +7,7 @@
     let
       agents = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
     in [
-      # agents.omp
+      agents.omp
     ];
 
   nix.settings = {

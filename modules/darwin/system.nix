@@ -6,6 +6,11 @@
     };
 
     system.defaults = {
+        screensaver = {
+            askForPassword = true;
+            askForPasswordDelay = 0;
+        };
+
         dock = { 
             autohide = true;
             persistent-apps = [ ];

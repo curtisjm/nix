@@ -32,6 +32,13 @@ let
     username = "curtis";
     homeDirectory = "/Users/curtis";
     hostname = "mbp";
+    terminalTheme = {
+      base16Scheme = "flexoki-dark";
+      polarity = "dark";
+      useStylixForGhostty = true;
+      useStylixForHerdr = true;
+      useStylixForTmux = true;
+    };
   };
 in
 {

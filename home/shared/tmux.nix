@@ -1,7 +1,35 @@
 {
+  config,
+  hostConfig,
+  lib,
   pkgs,
   ...
-}: {
+}:
+let
+  terminalTheme = hostConfig.terminalTheme or { };
+  useStylix = terminalTheme.useStylixForTmux or false;
+  stylixColors = config.lib.stylix.colors.withHashtag;
+  theme =
+    if useStylix then
+      {
+        background = stylixColors.base00;
+        foreground = stylixColors.base05;
+        labelForeground = stylixColors.base00;
+        muted = stylixColors.base04;
+        border = stylixColors.base03;
+        accent = stylixColors.base0D;
+      }
+    else
+      {
+        background = "default";
+        foreground = "default";
+        labelForeground = "black";
+        muted = "brightblack";
+        border = "brightblack";
+        accent = "blue";
+      };
+in
+{
   programs.tmux = {
     enable = true;
     terminal = "tmux-256color";
@@ -105,17 +133,17 @@
       set -gw automatic-rename-format '#{b:pane_current_path}'
 
       # Theme
-      set -g status-style "bg=default,fg=default"
-      set -g status-left "#[fg=black,bg=blue,bold] #S #[bg=default] "
-      set -g status-right "#[fg=blue]#{?pane_in_mode,COPY ,}#{?client_prefix,PREFIX ,}#{?window_zoomed_flag,ZOOM ,}#[fg=brightblack]#h "
-      set -g window-status-format "#[fg=brightblack] #I:#W "
-      set -g window-status-current-format "#[fg=blue,bold] #I:#W "
-      set -g pane-border-style "fg=brightblack"
-      set -g pane-active-border-style "fg=blue"
-      set -g message-style "bg=default,fg=blue"
-      set -g message-command-style "bg=default,fg=blue"
-      set -g mode-style "bg=blue,fg=black"
-      setw -g clock-mode-colour blue
+      set -g status-style "bg=${theme.background},fg=${theme.foreground}"
+      set -g status-left "#[fg=${theme.labelForeground},bg=${theme.accent},bold] #S #[bg=${theme.background}] "
+      set -g status-right "#[fg=${theme.accent}]#{?pane_in_mode,COPY ,}#{?client_prefix,PREFIX ,}#{?window_zoomed_flag,ZOOM ,}#[fg=${theme.muted}]#h "
+      set -g window-status-format "#[fg=${theme.muted}] #I:#W "
+      set -g window-status-current-format "#[fg=${theme.accent},bold] #I:#W "
+      set -g pane-border-style "fg=${theme.border}"
+      set -g pane-active-border-style "fg=${theme.accent}"
+      set -g message-style "bg=${theme.background},fg=${theme.accent}"
+      set -g message-command-style "bg=${theme.background},fg=${theme.accent}"
+      set -g mode-style "bg=${theme.accent},fg=${theme.labelForeground}"
+      setw -g clock-mode-colour ${theme.accent}
 
       set -g extended-keys on
       set -g extended-keys-format csi-u
@@ -150,4 +178,3 @@
       # # bind -r j select-pane -D
       # # bind -r h select-pane -L
       # # bind -r l select-pane -R
-

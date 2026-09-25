@@ -11,6 +11,7 @@
     ../shared/fzf.nix
     ../shared/git.nix
     ../shared/ghostty.nix
+    ../shared/herdr.nix
     ../shared/tmux.nix
     ../nixos/direnv.nix
   ];
